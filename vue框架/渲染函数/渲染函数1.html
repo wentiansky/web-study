@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>渲染函数</title>
+</head>
+<body>
+  <div id="app">
+    <anchored-heading :level="1">
+      <span>111</span>
+    </anchored-heading>
+    <anchored-heading :level="2">
+      <p>222</p>
+    </anchored-heading>
+  </div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const App = {
+      data() {
+        return {
+          msg: 'hello'
+        }
+      }
+    }
+    const app = Vue.createApp(App)
+
+    app.component('anchored-heading', {
+      render() {
+        const { h } = Vue
+        return (
+          h(
+            `h${ this.level }`, 
+            {},
+            this.$slots.default()
+          )
+        )
+      },
+      props: {
+        level: {
+          type: Number,
+          required: true
+        }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>

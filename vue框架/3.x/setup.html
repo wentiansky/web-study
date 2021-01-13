@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>setup</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{ name }}</p>
+  </div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    function fetchUserRepositories() {
+      return {
+        data: {},
+        success: true
+      }
+    }
+
+    const Count = {
+      data() {
+        return {
+          name: 'jax'
+        }
+      },
+
+      setup(props, context) {
+        const { attr, slots, emit } = context
+        const { user } = Vue.toRefs(props)
+        const repositories = Vue.ref([])
+        const searchQuery = Vue.ref('')
+        const getUserRepositories = () => {
+          repositories.value = fetchUserRepositories(user.value)
+        }
+        console.log(attr)
+        console.log(slots)
+        console.log(emit)
+
+        // 在setup中用onMounted代替mounted钩子函数
+        Vue.onMounted(getUserRepositories)
+
+        Vue.watch(user, getUserRepositories)
+        
+        const repositoriesMatchingSearchQuery = Vue.computed(() => {
+          return repositories.value.filter(repository => repositoty.name.includes(searchQuery.value))
+        })
+
+        return {
+          repositories,
+          getUserRepositories,
+          searchQuery,
+          repositoriesMatchingSearchQuery
+        }
+      }
+    }
+    const app = Vue.createApp(Count)
+    app.mount('#app')
+
+  </script>
+</body>
+</html>

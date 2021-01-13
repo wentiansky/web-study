@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组groupBy方法</title>
+</head>
+<body>
+  <script>
+    /* 根据指定条件(如对象的属性)进行分组，构成对象返回 */
+    function groupBy(target, prop) {
+      var result = {}
+      var iterator = isFunction(prop) ? prop : function(obj) {
+        return obj[prop]
+      }
+      target.forEach(function(item, index) {
+        var key = iterator(item, index);
+        (result[key] || (result[key] = [])).push(item)
+      })
+      return result
+    }
+
+    function isFunction(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number'
+    }
+
+    var arr = [{
+      name: 'jax',
+      age: 25
+    }, {
+      name: 'yun',
+      age: 29
+    }]
+    console.log(groupBy(arr, 'name'))
+  </script>
+</body>
+</html>

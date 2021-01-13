@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日期在该月最后一天</title>
+</head>
+<body>
+  <script>
+    function getLastDateInMonth(date) {
+      // 这个月的最后一天 === 下个月的第0天
+      return new Date(date.getFullYear(), date.getMonth() + 1, 0).toLocaleDateString()
+    }
+    console.log(getLastDateInMonth(new Date))
+  </script>
+</body>
+</html>

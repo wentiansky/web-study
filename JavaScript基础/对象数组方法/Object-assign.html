@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object.assign</title>
+  </head>
+  <body>
+    <script>
+      function toObject(val) {
+        if (val == null) {
+          throw new TypeError('Cannot convert undefined or null to object')
+        }
+
+        return Object(val)
+      }
+
+      var myObjectAssign = Object.assign || function (target, source) {
+        var from, keys
+        var to = toObject(target)
+
+        for (var i = 1; i < arguments.length; i++) {
+          from = arguments[i]
+          keys = Object.keys(Object(from))
+          for (var j = 0; j < keys.length; j++) {
+            to[keys[j]] = from[keys[j]]
+          }
+        }
+
+        return to
+      }
+
+      var obj = myObjectAssign({ name: 'jax' }, { name: 'bob', age: 25 })
+      console.log(obj)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>判断闰年</title>
+</head>
+<body>
+  <script>
+    function isLeapYear1(date) {
+      // 判断2月份的最后一天(3月份的第零天)是否等于29
+      return new Date(date.getFullYear(), 2, 0).getDate() === 29
+    }
+
+    function isLeapYear2(date) {
+      var year = date.getFullYear()
+      return !!((year & 3) == 0 && (year % 100 || (year % 400 == 0 && year)))
+    }
+
+    function isLeapYear3(date) {
+      var year = date.getFullYear()
+      return !!(year % 4 === 0 && year % 100 !== 0 || year % 400 === 0)
+    }
+    console.log(isLeapYear3(new Date))
+  </script>
+</body>
+</html>

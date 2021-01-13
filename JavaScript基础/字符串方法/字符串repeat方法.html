@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串repeat方法</title>
+</head>
+<body>
+  <script>
+    /* 缺点：构建数组性能差 */
+    function repeat1(target, n) {
+      return new Array(n + 1).join(target)
+    }
+
+    /* 缺点：查找数组原型性能差 */
+    function repeat2(target, n) {
+      return Array.prototype.join.call({
+        length: n + 1
+      }, target)
+    }
+
+    /* 优点：利用闭包缓存数组原型 */
+    var repeat3 = (function() {
+      var join = Array.prototype.join
+      var obj = {}
+      return function(target, n) {
+        obj.length = n + 1
+        return join.call(obj, target)
+      }
+    })()
+
+    /* 优点：利用二分法 */
+    function repeat4(target, n) {
+      var s = target
+      var total = []
+
+      while(n > 0) {
+        if (n % 2 === 1) {
+          total[total.length] = s
+        }
+        if (n === 1) {
+          break
+        }
+        s += s
+        n = n >> 1 // 相当于将n除以2取商
+      }
+      return total.join('')
+    }
+
+    /* 缺点：最后需要字符串截取 */
+    function repeat5(target, n) {
+      var s = target
+      var c = s.length * n
+
+      do {
+        s += s
+      } while (n = n >> 1)
+      s = s.substring(0, c)
+      return s
+    }
+    
+    /* 优点：各大浏览器跑分最高 */
+    function repeat6(target, n) {
+      var s = target
+      var total = ''
+
+      while(n > 0) {
+        if (n % 2 === 1) {
+          total += s
+        }
+        if (n === 1) break
+        n = n >> 1
+        s += s
+      }
+      return total
+    }
+
+    /* 优点：浏览器对递归做了优化，还可以 */
+    function repeat7(target, n) {
+      if (n === 1) return target
+
+      var s = repeat7(target, Math.floor(n / 2))
+      s += s
+      if (n % 2) {
+        s += target
+      }
+      return s
+    }
+    
+    console.log(repeat7('AbC', 3))
+  </script>
+</body>
+</html>

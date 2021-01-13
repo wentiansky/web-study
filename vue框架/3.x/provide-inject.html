@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>provide/inject</title>
+</head>
+<body>
+  <div id="app">
+    <my-marker></my-marker>
+    <button @click="handleClick">父组件更新位置</button>
+  </div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const myMap = {
+      setup() {
+        // const location = 'Si Chuan'
+        // 添加响应性
+        const location = Vue.ref('Si Chuan')
+        const geolocation = Vue.reactive({
+          longitute: 100,
+          latitute: 200
+        })
+        const updateLocation = () => location.value = 'Shen Zhen'
+        
+        // provide prop
+        // Vue.provide('location', location)
+        // 防止子组件修改prop
+        Vue.provide('location', Vue.readonly(location))
+        Vue.provide('geolocation', geolocation)
+        // 提供子组件方法修改prop
+        Vue.provide('updateLocation', updateLocation)
+
+        return {
+          location,
+          geolocation
+        }
+      },
+
+      methods: {
+        handleClick() {
+          this.location = 'Shang Hai'
+        }
+      },
+    }
+
+    const app = Vue.createApp(myMap)
+
+    app.component('my-marker', {
+      template: `<div>
+                  <div>location: {{ useLocation }}</div>
+                  <div>geolocation: {{ useGeolocation }}</div>
+                  <div><button @click="handleClick">子组件更新位置</button></div>
+                </div>`,
+      setup(props) {
+        // inject prop
+        const useLocation = Vue.inject('location', 'Bei Jing')
+        const useGeolocation = Vue.inject('geolocation')
+        const updateLocation = Vue.inject('updateLocation')
+
+        return {
+          useLocation,
+          useGeolocation,
+          updateLocation
+        }
+      },
+      methods: {
+        handleClick() {
+          this.updateLocation()
+          // 无法修改父组件readonly的prop
+          // this.useLocation = 'hello' 
+        }
+      }
+    })
+
+    const vm = app.mount('#app')
+  </script>
+</body>
+</html>

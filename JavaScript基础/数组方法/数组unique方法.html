@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组unique方法</title>
+</head>
+<body>
+  <script>
+    /* 对数组进行去重，返回一个没有重复元素的新数组 */
+    function unique(target) {
+      var result = []
+      loop: for (var i = 0; i < target.length; i++) {
+        for (var j = i + 1; j < target.length; j++) {
+          if (target[j] === target[i]) {
+            continue loop
+          }
+        }
+        result.push(target[i])
+      }
+      return result
+    }
+    console.log(unique([1, 1, 1, 2, 3, 2, 1, 4, 4, 2, 3]))
+  </script>
+</body>
+</html>

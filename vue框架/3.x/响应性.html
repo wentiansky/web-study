@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>响应性</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const count = Vue.ref(0)
+    const state = Vue.reactive({
+      count
+    })
+    
+    console.log(state.count)
+    state.count = 1
+    console.log(state.count)
+    console.log(count.value)
+    
+    const book = Vue.ref('book')
+    const arr = Vue.reactive([book])
+    console.log(arr[0].value)
+
+    const name = Vue.ref('jax')
+    const map = Vue.reactive(new Map([['name', name]]))
+    console.log(map.get('name').value)
+
+    const parent = Vue.reactive({
+      mmName: 'mom',
+      age: '55'
+    })
+    let { mmName, age } = Vue.toRefs(parent)
+    // let { mmName, age } = parent
+    console.log(parent.age)
+    age.value = 50
+    console.log(parent.age)
+
+    const num = Vue.reactive({
+      n: 0
+    })
+    const copyNum = Vue.readonly(num)
+    num.n++
+    console.log(num.n)
+    console.log(copyNum.n)
+    copyNum.n++
+    console.log(num.n)
+    console.log(copyNum.n)
+    Vue.createApp(state).mount('#app')
+  </script>
+</body>
+</html>

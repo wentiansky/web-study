@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bind方法</title>
+</head>
+<body>
+  <script>
+    Function.prototype.bind = function (context) {
+      if (arguments.length < 2 && context == void 0) {
+        return this
+      }
+      var __method = this
+      var args = [].slice.call(arguments, 1)
+      return function() {
+        return __method.apply(context, args.concat.apply(args, arguments))
+        // return __method.apply(context, args.concat(arguments))
+      }
+    }
+
+    var module = {
+      x: 1,
+      getX: function() {
+        return this.x
+      }
+    }
+
+    var myGetX = module.getX
+    var myGetXBind = myGetX.bind(module, 1, 2)
+    console.log(myGetXBind())
+
+    var myBind = function (bind) {
+      return {
+        bind: bind.bind(bind),
+        call: bind.bind(bind.call),
+        apply: bind.bind(bind.apply)
+      }
+    }(Function.prototype.bind)
+    
+    var a = [1, [2, 3, [4]], 5]
+    var b = [6, 7]
+    var concat = myBind.apply([].concat)
+    console.log(concat(b, a))
+  </script>
+</body>
+</html>

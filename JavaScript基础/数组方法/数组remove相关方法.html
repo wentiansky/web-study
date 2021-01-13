@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组remove相关方法</title>
+</head>
+<body>
+  <script>
+    /* 移除数组中指定位置的元素，返回布尔值 */
+    function removeAt(target, index) {
+      return !!target.splice(index, 1).length
+    }
+
+    /* 移除数组第一个匹配传参的元素，返回布尔值 */
+    function remove(target, item) {
+      var index = target.indexOf(item)
+      if (index > -1) {
+        return removeAt(target, index)
+      } else {
+        return false
+      }
+    }
+  </script>
+</body>
+</html>

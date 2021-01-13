@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组diff方法</title>
+  </head>
+  <body>
+    <script>
+      /* 对两个数组的差集(补集), 返回值来自target，不存在array中 */
+      function diff(target, array) {
+        var result = target.slice()
+        for (var i = 0; i < result.length; i++) {
+          for (var j = 0; j < array.length; j++) {
+            if (result[i] === array[j]) {
+              result.splice(i, 1)
+              i--
+              break
+            }
+          }
+        }
+        return result
+      }
+
+      console.log(diff([1, 1, 4, 9, 12, 4, 4], [1, 1, 1, 2, 3, 2, 1, 4, 4, 2, 3]))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组unshift方法(函数劫持)</title>
+  </head>
+  <body>
+    <script>
+      /* 使用函数劫持修改原生数组的unshift方法 */
+      function unshift() {
+        var _unshift = Array.prototype.unshift
+        Array.prototype.unshift = function() {
+          _unshift.apply(this, arguments)
+          return 'success'
+        }
+      }
+
+    </script>
+  </body>
+</html>

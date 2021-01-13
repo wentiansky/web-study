@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>去掉字符串空格</title>
+  </head>
+  <body>
+    <script>
+      // 第1天：输入不同的类型，去掉字符串前、后、前后、中间的空格
+      var string = ''
+      function trim(str, type) {
+        switch (type) {
+          case 1:
+            // 去掉前空格
+            str = str.replace(/^\s+/, '')
+            break
+          case 2:
+            // 去掉后空格
+            str = str.replace(/\s+$/, '')
+            break
+            case 3:
+            // 去掉前后空格
+            str = str.replace(/^\s+|\s+$/g, '')
+            break
+            case 4:
+            // 去掉中间空格
+            str = str.replace(/\b\s+\b/g, '')
+            break
+          default:
+            // 去掉所有空格
+            str = str.replace(/\s+/g, '')
+            break
+        }
+        string = str
+      }
+
+      trim('                            123   45       678               ', 4)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组sortBy方法</title>
+</head>
+<body>
+  <script>
+    /* 根据指定条件(如对象的属性)进行排序，通常用于对象数组 */
+    function sortBy(target, fn, scope) {
+      var array = target.map(function(item, index) {
+        return {
+          el: item,
+          re: fn.call(scope, item, index)
+        }
+      }).sort(function(left, right) {
+        var a = left.re
+        var b = right.re
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      return pluck(array, 'el')
+    }
+
+    function pluck(target, name) {
+      var result = []
+      var value
+      target.forEach(function(item) {
+        value = item[name]
+        if (value != null) {
+          result.push(value)
+        }
+      })
+      return result
+    }
+
+    var arr = [{
+      name: 'jax',
+      age: 25
+    }, {
+      name: 'yun',
+      age: 29
+    }, {
+      name: 'bob',
+      age: 20
+    }]
+    console.log(sortBy(arr, function(item) {
+      return -item.age
+    }))
+  </script>
+</body>
+</html>

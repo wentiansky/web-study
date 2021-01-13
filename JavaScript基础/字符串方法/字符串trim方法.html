@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串trim方法</title>
+</head>
+<body>
+  <script>
+    /* 浏览器对字符串处理有优化，性能最好 */
+    function trim1(str) {
+      return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '')
+    }
+
+    /* 性能次之 */
+    function trim2(str) {
+      return str.substring(Math.max(str.search(/\S/), 0), str.search(/\S\s*$/) + 1)
+    }
+    
+    /* 写法优雅，性能次之，js库多采用 */
+    function trim3(str) {
+      return str.replace(/^\s+|\s+$/g, '')
+    }
+
+    /* 正则表达式分组慢 */
+    function trim4(str) {
+      str = str.match(/\S+(?:\s+\S+)*/)
+      return str ? str[0] : ''
+    }
+
+    function trim5(str) {
+      return str.replace(/^\s*(\S*(\s+\S+)*)\s*$/, '$1')
+    }
+
+    function trim6(str) {
+      return str.replace(/^\s*(\S*(?:\s+\S+)*)\s*$/, '$1')
+    }
+
+    console.log(trim6('    12  34    '))
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>响应式计算</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const count = Vue.ref(1)
+    // const plusOne = Vue.computed(() => count.value + 1)
+    const plusOne = Vue.computed({
+      get() {
+        return count.value + 1
+      },
+      set(val) {
+        count.value = val - 1
+      }
+    })
+
+    plusOne.value = 1
+    console.log(count.value)
+    console.log(plusOne.value)
+  </script>
+</body>
+</html>

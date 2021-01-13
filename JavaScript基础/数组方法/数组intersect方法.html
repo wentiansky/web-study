@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组intersect方法</title>
+  </head>
+  <body>
+    <script>
+      /* 对两个数组取交集 */
+      function intersect(target, array) {
+        var result = []
+        result = target.filter(function (item) {
+          return ~array.indexOf(item)
+        })
+        return unique(result)
+      }
+
+      function unique(target) {
+        var result = []
+        loop: for (var i = 0; i < target.length; i++) {
+          for (var j = i + 1; j < target.length; j++) {
+            if (target[j] === target[i]) {
+              continue loop
+            }
+          }
+          result.push(target[i])
+        }
+        return result
+      }
+      
+      console.log(intersect([1, 1, 4, 9, 12, 4, 4], [1, 1, 1, 2, 3, 2, 1, 4, 4, 2, 3]))
+
+      /* 力扣算法题解 */
+      const set_intersection = (set1, set2) => {
+        if (set1.size > set2.size) {
+          return set_intersection(set2, set1)
+        }
+        const intersection = new Set()
+        for (const num of set1) {
+          if (set2.has(num)) {
+            intersection.add(num)
+          }
+        }
+        return [...intersection]
+      }
+
+      var intersection = function (nums1, nums2) {
+        const set1 = new Set(nums1)
+        const set2 = new Set(nums2)
+        return set_intersection(set1, set2)
+      }
+
+      console.log(intersection([1, 1, 4, 9, 12, 4, 4], [1, 1, 1, 2, 3, 2, 1, 4, 4, 2, 3]))
+    </script>
+  </body>
+</html>

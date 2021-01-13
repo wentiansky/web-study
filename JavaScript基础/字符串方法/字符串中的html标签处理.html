@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串中的html标签处理</title>
+</head>
+<body>
+  <div id="text"><""''></div>
+  <script>
+    /* 过滤html标签 */
+    function stripTags(target) {
+      var regTag = /<\w+(\s+("[^"]*"|'[^']*'|[^>])+)?>|<\/\w+>/gi
+      return target.replace(regTag, '')
+    }
+
+    /* 过滤script标签 */
+    function stripScripts(target) {
+      var regScript = /<script[^>]*>([\S\s]*?)<\/script>/img
+      return String(target || '').replace()
+    }
+
+    /* html转义 */
+    function escapeHTML(target) {
+      return target.replace(/&/g, '&amp;')
+                   .replace(/</g, '&lt;')
+                   .replace(/>/g, '&gt;')
+                   .replace(/"/g, '&quot;')
+                   .replace(/'/g, '&#39;')
+    }
+
+    /* html实体还原 */
+    function unescapeHTML(target) {
+      return target.replace(/&#39;/g, '\'')
+                   .replace(/&quot;/g, '"')
+                   .replace(/&lt;/g, '<')
+                   .replace(/&gt;/g, '>')
+                   .replace(/&amp;/g, '&')
+    }
+
+    /* 将字符串格式化为正则表达式 */
+    function escapeRegExp(target) {
+      return target.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1')
+    }
+
+    console.log(escapeRegExp('-.*+?^${}()|['))
+  </script>
+</body>
+</html>

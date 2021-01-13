@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串包含方法</title>
+</head>
+<body>
+  <script>
+    function contains(target, it) {
+      // 将indexOf换成search或lastIndexOf也可以
+      return target.indexOf(it) > -1
+    }
+
+    function startsWith(target, str, ignorecase) {
+      if (ignorecase) {
+        target = target.toLowerCase()
+        str = str.toLowerCase()
+      }
+      return target.indexOf(str) === 0
+    }
+
+    function endsWith(target, str, ignorecase) {
+      if (ignorecase) {
+        target = target.toLowerCase()
+        str = str.toLowerCase()
+      }
+      return target.indexOf(str, target.length - str.length) > -1
+    }
+  </script>
+</body>
+</html>

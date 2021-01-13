@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hello-world</title>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="../vue@3.0.2.js"></script>
+  <style>
+    #counter {
+      width: 600px;
+      padding: 20px;
+      margin: 20px auto;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1rem;
+      margin: 20px;
+      font-family: sans-serif;
+      font-size: 1rem;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: #d93419;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: 0.2s background-color ease;
+    }
+
+    .btn:focus {
+      outline: 1px dashed #fff;
+      outline-offset: -3px;
+    }
+
+    .shake {
+      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+    }
+
+    @keyframes shake {
+      10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+
+      20%, 80% {
+        transform: translate3d(2px, 0, 0);
+      }
+
+      30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+
+      40%, 60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
+    .fade-enter-active {
+      transition: all 0.5s ease-out;
+    }
+
+    .fade-leave-active {
+      transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+
+    .bounce-enter-active {
+      animation: bounce-in 0.5s;
+    }
+
+    .bounce-leave-active {
+      animation: bounce-in 0.5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+
+      50% {
+        transform: scale(1.25);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="counter">
+    Counter：{{ counter }}
+    <div v-bind:title="message">鼠标悬浮试试</div>
+    <child v-bind:text="message" v-model:name.acc="foo">
+      <template v-slot:default="{ child }">{{ child }}</template>
+    </child>
+    <div>{{ foo }}</div>
+    <div>
+      <button class="btn" :class="{shake: isActive}" :style="{ backgroundColor: `hsl(${x}, 80%, 50%)` }" @click="handleClick" @mousemove="handleMove">click me: {{x}}</button>
+    </div>
+    <button @click="isShow = !isShow">toggle</button>
+    <transition name="fade">
+      <p v-if="isShow">hello</p>
+    </transition>
+    <!-- 过渡动画 -->
+    <transition name="bounce">
+      <p v-if="isShow">
+        Lorem ipsum dolor sit amet,<br/>
+        consectetur adipiscing elit. Mauris<br/>
+        facilisis enim libero, at lacinia diam<br/>
+        fermentum id. Pellentesque habitant<br/>
+        morbi tristique senectus et netus.
+      </p>
+    </transition>
+  </div>
+  <script>
+    const Counter = {
+      data() {
+        return {
+          counter: 10,
+          message: 'hello jax',
+          foo: '',
+          isActive: false,
+          x: 0,
+          isShow: true
+        }
+      },
+
+      provide() {
+        return {
+          age: this.counter
+        }
+      },
+
+      mounted() {},
+
+      methods: {
+        handleClick() {
+          this.isActive = !this.isActive
+        },
+
+        handleMove(e) {
+          this.x = e.clientX
+        }
+      },
+    }
+
+    const app = Vue.createApp(Counter)
+
+    app.component('child', {
+      props: {
+        text: String,
+        name: String,
+        nameModifiers: {
+          default: () => ({})
+        }
+      },
+
+      inject: ['age'],
+
+      data() {
+        return {
+          child: 'abcde123'
+        }
+      },
+      template: `<div>
+                  <div>{{ age }}</div>
+                  <slot :child="child">default</slot>
+                  <input :value="name" @input="emitValue" />
+                </div>`,
+      created() {
+        console.log(this.nameModifiers)
+      },
+      methods: {
+        emitValue(e) {
+          let value = e.target.value
+          if (this.nameModifiers.acc) {
+            value = value.charAt(0).toUpperCase() + value.slice(1)
+          }
+          this.$emit('update:name', value)
+        }
+      },
+    })
+    // console.log(app)
+
+    const vm = app.mount('#counter')
+    // console.log(vm.message)
+  </script>
+</body>
+</html>

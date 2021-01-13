@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取得当前月份的天数</title>
+</head>
+<body>
+  <script>
+    function getDaysInMonth1(date) {
+      switch (date.getMonth) {
+        case 0:
+        case 2:
+        case 4:
+        case 6:
+        case 7:
+        case 9:
+        case 11:
+          return 31
+        case 1:
+          var year = date.getFullYear()
+          return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0 ? 29 : 28
+        default:
+          return 30
+      }
+    }
+
+    var getDaysInMonth2 = (function () {
+      var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      function isLeapYear(date) {
+        var year = date.getFullYear()
+        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0
+      }
+      return function (date) {
+        var month = date.getMonth()
+        return month === 1 && isLeapYear(date) ? 29 : daysInMonth[month]
+      }
+    })()
+
+    function getDaysInMonth3 (date) {
+      return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+    }
+    console.log(getDaysInMonth3(new Date()))
+  </script>
+</body>
+</html>

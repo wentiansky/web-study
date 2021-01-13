@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>watch</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const state = Vue.reactive({
+      count: 0
+    })
+    // Vue.watch(() => state.count++)
+    Vue.watch((newVal, prevVal) => {
+      state.count++
+    })
+
+    const count = Vue.ref(0)
+    Vue.watch(count, (newVal, prevVal) => {
+      console.log('newVal: ' + newVal)
+      console.log('prevVal: ' + prevVal)
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>约瑟夫环</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @desc 已知n个人(以编号1, 2, 3, ..., n)围坐一张桌子，
+       * 从编号为k的人开始报数，数到m的那个人出列，
+       * 他的下一个人又从1开始报数，数到m的人又出列，
+       * 以此重复下去，直到所有人全部出列
+       * @param { Number } num 总的人数
+       * @param { Number } m 出列的序号
+       */
+      function josephRing(num, m) {
+        var k = 0 // 从k开始报数
+        var arr = [] // 原始序号
+        var newArr = [] // 出列序号
+        for (var i = 1; i <= num; i++) {
+          arr.push(i)
+        }
+
+        while (arr.length > 0) {
+          var out = 0
+          var len = arr.length
+          for (var j = 0; j < len; j++) {
+            k++
+            if (k === m) {
+              k = 0
+              var idx = j - out
+              newArr.push(arr[idx])
+              arr.splice(idx, 1)
+              out++
+            }
+          }
+        }
+        console.log(newArr)
+        return newArr
+      }
+
+      josephRing(10, 5)
+    </script>
+  </body>
+</html>

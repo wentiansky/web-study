@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组compact方法</title>
+</head>
+<body>
+  <script>
+    /* 过滤数组中的null和undefined，不影响原数组 */
+    function compact(target) {
+      return target.filter(function(item) {
+        return item != null
+      })
+    }
+    console.log(compact([1, 2, null, 3, undefined]))
+  </script>
+</body>
+</html>

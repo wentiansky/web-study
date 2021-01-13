@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组min方法</title>
+  </head>
+  <body>
+    <script>
+      /* 返回数组中的最小值，用于数字数组 */
+      function min(target) {
+        return Math.min.apply(null, target)
+      }
+
+      console.log(min([2, 3, 2, 4, 4, 2, 3]))
+    </script>
+  </body>
+</html>

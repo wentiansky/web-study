@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>凑零钱</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 假设有任意张面额为2元、3元、7元的货币，
+       * 需要凑出100元，总共有多少种可能性
+       */
+      function collectMoney(n) {
+        var count = 0
+
+        for (var i = 0; i <= n / 7; i++) {
+          // debugger
+          for (var j = 0; j <= n / 3; j++) {
+            if ((n - i * 7 - j * 3) % 2 === 0) {
+              count++
+            }
+          }
+        }
+        console.log(count)
+      }
+      collectMoney(4)
+    </script>
+  </body>
+</html>

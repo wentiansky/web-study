@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组shuffle洗牌算法</title>
+</head>
+<body>
+  <script>
+    function shuffle(target) {
+      var j
+      var temp
+
+      for (var i = target.length; i > 0;) {
+        j = parseInt(Math.random() * i)
+        temp = target[--i]
+        target[i] = target[j]
+        target[j] = temp
+      }
+      return target
+    }
+
+    /* 从数组中随机抽选一个元素 */
+    function random(target) {
+      // Math.random() [0, 1)
+      return target[Math.floor(Math.random() * target.length)]
+    }
+
+    console.log(shuffle([1, 2, 3, 4, 5, 6]))
+  </script>
+</body>
+</html>

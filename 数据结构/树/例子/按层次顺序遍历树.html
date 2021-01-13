@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>按层次顺序遍历树</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @desc 给定一棵树，按照层次顺序遍历并打印这棵树
+       * @param
+       */
+      var tree = {
+        value: 16,
+        left: {
+          value: 13,
+          left: {
+            value: 10,
+          },
+          right: {
+            value: 15,
+          },
+        },
+        right: {
+          value: 20,
+          right: {
+            value: 22,
+            left: {
+              value: 21,
+            },
+            right: {
+              value: 26,
+            },
+          },
+        },
+      }
+      function traverseTree(node) {
+        if (!node) return
+
+        var arr = [node]
+        while (arr.length > 0) {
+          var item = arr.shift()
+          console.log(item.value)
+          if (item.left) {
+            arr.push(item.left)
+          }
+          if (item.right) {
+            arr.push(item.right)
+          }
+        }
+      }
+      traverseTree(tree)
+    </script>
+  </body>
+</html>
+  

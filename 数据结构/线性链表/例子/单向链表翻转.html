@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>单向链表翻转</title>
+  </head>
+  <body>
+    <script src="./linked-list.js"></script>
+    <script>
+      var list = new LList()
+
+      list.insert('a', 'head')
+      list.insert('b', 'a')
+      list.insert('c', 'b')
+      // list.remove('a')
+      // list.print()
+
+      // 链表翻转
+      // c -> b -> a -> head -> null 从右往左
+      function listReverse() {
+        var currNode = list.head
+        var next = null
+        var prev = null
+        while (currNode) {
+          next = currNode.next
+          currNode.next = prev
+          prev = currNode
+          currNode = next
+        }
+        return prev
+      }
+
+      console.log(listReverse())
+    </script>
+  </body>
+</html>

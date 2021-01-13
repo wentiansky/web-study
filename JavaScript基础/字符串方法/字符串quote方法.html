@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符串quote方法</title>
+</head>
+<body>
+  <script>
+    var Escapes = {
+      92: '\\\\',
+      34: '\\"',
+      8: '\\b',
+      12: '\\f',
+      10: '\\n',
+      13: '\\r',
+      9: '\\t'
+    }
+
+    var leadingZeroes = '000000'
+    var toPaddedString = function (width, value) {
+      return (leadingZeroes + (value || 0)).slice(width)
+    }
+    var unicodePrefix = '\\u00'
+    var escapeChar = function (character) {
+      var charCode = character.charCodeAt(0)
+      var escaped = Escapes[charCode]
+      if (escaped) {
+        return escaped
+      }
+      return unicodePrefix + toPaddedString(2, charCode.toString(16))
+    }
+    var reEscape = /[\x00-\x1f\x22\x5c]/g
+    function quote(value) {
+      reEscape.lastIndex = 0
+      return '"' + (reEscape.test(value) ? String(value).replace(reEscape, escapeChar) : value) + '"'
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>递归实现符合条件的随机数组</title>
+  </head>
+  <body>
+    <script>
+      // 第1天：用递归算法实现，数组长度为5且元素的随机数在2-32间不重复的值
+      let arr = []
+      function generateRandomArr() {
+        if (arr.length >= 5) return
+        randomNum = Math.floor(Math.random() * 31 + 2)
+        if (arr.indexOf(randomNum) === -1) {
+          arr.push(randomNum)
+        }
+        generateRandomArr()
+      }
+      
+      generateRandomArr()
+      console.log(arr)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模板引用</title>
+</head>
+<body>
+  <div id="app">
+    <div ref="root">hello</div>
+  </div>
+  <script src="../vue@3.0.2.js"></script>
+  <script>
+    const Hello = {
+      // el => { if (el) divs[index] = el }
+      template: `<div v-for="(item, index) in list" :ref="setItemRef">{{ item }}</div>
+                <div><button @click="handleClick">点击</button></div>`,
+      setup() {
+        const list = Vue.ref([1, 2, 3])
+        // const list = Vue.reactive([1, 2, 3])
+        const divs = Vue.ref([])
+
+        const setItemRef = (el) => el && divs.value.push(el)
+        
+        // 确保在每次更新前重置ref
+        Vue.onBeforeUpdate(() => divs.value = [])
+
+        return {
+          list,
+          divs,
+          setItemRef
+        }
+      },
+
+      methods: {
+        handleClick() {
+          console.log(this.list)
+          console.log(this.divs)
+          this.list = [5, 6, 7] // ** 如果在setup中用reactive初始化list，则重新赋值新数组，视图不会响应式更新，用ref初始化视图则能响应更新 **
+          // this.list.push(4)
+          console.log(this.list)
+          console.log(this.divs)
+        }
+      },
+    }
+
+    const app = Vue.createApp(Hello)
+
+    const vm = app.mount('#app')
+  </script>
+</body>
+</html>

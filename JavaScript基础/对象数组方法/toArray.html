@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>toArray</title>
+  </head>
+  <body>
+    <script>
+      var arrayLike = {
+        0: 'a',
+        1: 'b',
+        2: 'c',
+        length: 3,
+      }
+
+      /* jquery的makeArray方法 */
+      function makeArray(array) {
+        var ret = []
+
+        if (array != null) {
+          var length = array.length
+          // the window, strings, functions also have 'length'
+          if (
+            length == null ||
+            typeof array === 'string' ||
+            typeof array === 'function' ||
+            array.setInterval
+          )
+            // array.setInterval 表示 array是window对象
+            ret[0] = array
+          else while (length) ret[--length] = array[length]
+        }
+
+        return ret
+      }
+
+      /* Prototype.js的$A1方法 */
+      function $A1(iterable) {
+        if (!iterable) return []
+        if (iterable.toArray) return iterable.toArray()
+        var length = iterable.length || 0 
+        var results = new Array(length)
+        
+        while(length--) results[length] = iterable[length]
+        return results
+      }
+      
+      /* mootools的$A2方法 */
+      function $A2(iterable) {
+        if (iterable.item) {
+          var length = iterable.length || 0
+          var array = new Array(length)
+          while(length--) array[length] = iterable[length]
+          return array
+        }
+        return Array.prototype.slice.call(iterable)
+      }
+
+      /* Ext的toArray方法 */
+      var toArray = (function () {
+        var isIE = (navigator.userAgent.indexOf("compatible") > -1 && navigator.userAgent.indexOf("MSIE")) > -1 ? true : false
+        if (isIE) {
+          return function(a, i, j, res) {
+            res = []
+            for(var k = 0; k < a.length; k++) {
+              res.push(a[k])
+            }
+            return res.slice(i || 0, j || res.length)
+          }
+        } else {
+          return function(a, i, j) {
+            return Array.prototype.slice.call(a, i || 0, j || a.length)
+          }
+        }
+      })()
+
+      var array = toArray(arrayLike)
+      console.log(array)
+    </script>
+  </body>
+</html>

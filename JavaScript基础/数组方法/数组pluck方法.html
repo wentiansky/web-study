@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数组pluck方法</title>
+</head>
+<body>
+  <script>
+    /* 取得对象数组的每个元素的指定属性的值，组成数组返回 */
+    function pluck(target, name) {
+      var result = []
+      var value
+      target.forEach(function(item) {
+        value = item[name]
+        if (value != null) {
+          result.push(value)
+        }
+      })
+      return result
+    }
+
+    var arr = [{
+      name: 'jax',
+      age: 25
+    }, {
+      name: 'yun',
+      age: 29
+    }]
+    console.log(pluck(arr, 'age'))
+  </script>
+</body>
+</html>
