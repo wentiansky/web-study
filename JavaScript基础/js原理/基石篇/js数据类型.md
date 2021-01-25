@@ -64,7 +64,7 @@ function getType(arg) {
   - 否则调用toString()方法；
 
 ### 2. Boolean()方法强制转换
-- 除了undefined、null、NaN、false、0、''，转换成`false`，其他都是`true`
+- 除了`undefined`、`null`、`NaN`、`false`、`0`、`""`，转换成`false`，其他都是`true`
 
 ## 四、隐式类型转换
 - 通过逻辑运算符：&&、||、!；
