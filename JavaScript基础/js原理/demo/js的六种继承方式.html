@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js的六种继承方式</title>
+</head>
+<body>
+  <script>
+    /* 1. 第一种原型链继承 */
+    function Parent1() {
+      this.name = 'parent1'
+      this.play = [1, 2, 3]
+    }
+
+    function Child1() {
+      this.type = 'child1'
+    }
+
+    Child1.prototype = new Parent1()
+    console.log(new Child1())
+
+    
+    /* 2. 构造函数继承(call) */
+    function Parent2() {
+      this.name = 'Parent2'
+    }
+
+    Parent2.prototype.getName = function() {
+      return this.name
+    }
+
+    function Child2() {
+      Parent2.call(this)
+      this.type = 'child2'
+    }
+
+    let child2 = new Child2()
+    console.log(child2)
+    // console.log(child2.getName()) // 错误
+
+    /* 3. 组合继承（前两种组合） */
+    function Parent3() {
+      this.name = 'Parent3'
+      this.play = [1, 2, 3]
+    }
+
+    Parent3.prototype.getName = function () {
+      return this.name
+    }
+
+    function Child3() {
+      Parent3.call(this) // 第二次调用Parent3()
+      this.type = 'child3'
+    }
+
+    Child3.prototype = new Parent3() // 第一次调用Parent3()
+    let s3 = new Child3()
+    let s4 = new Child3()
+    s3.play.push(4)
+    console.log(s3.play)
+    console.log(s4.play)
+    console.log(s3.getName())
+    console.log(s4.getName())
+
+    /* 4. 原型式继承 - Object.create */
+    let parent4 = {
+      name: 'parent4',
+      friends: ['p1', 'p2', 'p3'],
+      getName: function() {
+        return this.name
+      }
+    }
+
+    let person4 = Object.create(parent4)
+    person4.name = 'tom'
+    person4.friends.push('bob')
+
+    let person5 = Object.create(parent4)
+    person5.friends.push('lys')
+    console.log(person4)
+    console.log(person5)
+    console.log(person4.name)
+    console.log(person4.name === person4.getName())
+    console.log(person5.name)
+    console.log(person4.friends)
+    console.log(person5.friends)
+
+    /* 5. 寄生式继承 */
+    let parent5 = {
+      name: 'parent5',
+      friends: ['p1', 'p2', 'p3'],
+      getName: function() {
+        return this.name
+      }
+    }
+
+    function clone(origin) {
+      let clone = Object.create(origin)
+      clone.getFriends = function() {
+        return this.friends
+      }
+      return clone
+    }
+
+    let person6 = clone(parent5)
+    console.log(person6)
+    console.log(person6.getName())
+    console.log(person6.getFriends())
+
+    /* 6. 寄生组合式继承 */
+    function cloneNew(parent, child) {
+      // 这里改用Object.create可以减少组合继承中多进行一次构造的过程
+      child.prototype = Object.create(parent.prototype)
+      child.prototype.constructor = child
+    }
+
+    function Parent6() {
+      this.name = 'parent6'
+      this.play = [1, 2, 3]
+    }
+
+    Parent6.prototype.getName = function() {
+      return this.name
+    }
+
+    function Child6() {
+      Parent6.call(this)
+      this.friend = 'child6'
+    }
+
+    cloneNew(Parent6, Child6)
+
+    Child6.prototype.getFriends = function() {
+      return this.friend
+    }
+
+    let child6 = new Child6()
+    console.log(child6)
+    console.log(child6.getName())
+    console.log(child6.getFriends())
+
+    /* 7. es6 extends实现继承 */
+    class PersonX {
+    constructor(name) {
+      this.name = name
+    }
+
+    // 原型方法
+    getName = function() {
+      console.log('Person:', this.name)
+    }
+  }
+
+  class Gamer extends PersonX {
+    constructor(name, age) {
+      super(name)
+      this.age = age
+    }
+  }
+
+  const smis = new Gamer('lys', 20)
+  smis.getName()
+  </script>
+</body>
+</html>
