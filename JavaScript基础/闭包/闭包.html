@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>闭包</title>
+</head>
+<body>
+  <script>
+    /* 闭包经典题目-输出0, 1, 2 */
+    
+    // 方法一：利用闭包，在自执行函数中返回匿名函数
+    // var data = []
+
+    // for (var i = 0; i < 3; i++) {
+    //   data[i] = (function(i) {
+    //     return function() {
+    //       console.log(i)
+    //     }
+    //   })(i)
+    // }
+    // data[0]()
+    // data[1]()
+    // data[2]()
+    
+    // 方法二：利用let在for循环中形成块级作用域，即闭包
+    var data = [];
+
+    for (let i = 0; i < 3; i++) {
+      data[i] = function () {
+        console.log(i);
+      };
+    }
+
+    data[0]();
+    data[1]();
+    data[2]();
+
+    // 方法三：利用闭包，立即自执行函数中使用定时器
+    // for (var i = 0; i < 3; i++) {
+    //   (function(i) {
+    //     setTimeout(function() {
+    //       console.log(i)
+    //     }, 1000)
+    //   })(i)
+    // }
+  </script>
+</body>
+</html>

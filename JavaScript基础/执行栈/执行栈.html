@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log(fun) // error
+
+    console.log(person) // 阻止运行
+</script>
+
+<script>
+    console.log(person) // undefined
+
+    console.log(fun) // 函数本身
+
+    var person = "Eric";
+
+    console.log(person) // Eric
+
+    var fun = function () {
+        console.log(person) // undefined，变量提升
+        var person = "Tom";
+        console.log(person) // Tom
+    }
+
+    fun()
+
+    console.log(person) // Eric
+</script>
+</body>
+</html>
