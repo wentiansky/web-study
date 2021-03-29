@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写一个new</title>
+</head>
+<body>
+  <script>
+    function create() {
+      // 1. 创建一个空对象
+      var obj = {}
+      // 2. 获取构造函数，即第一个参数
+      var Con = [].shift.call(arguments)
+      // 3. 对象链接到构造函数的原型
+      // obj.__proto__ = Con.prototype
+      Object.setPrototypeOf(obj, Con.prototype)
+      // 4. 绑定this
+      var ret = Con.apply(obj, arguments)
+      return ret instanceof Object ? ret : obj
+    }
+
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+
+    Person.prototype.getName = function() {
+      console.log('name: ' + this.name)
+    }
+
+    var person1 = create(Person, 'jax', 25)
+    var person2 = new Person('bob', 24)
+    console.log(person1)
+    console.log(person2)
+    person1.getName()
+    person2.getName()
+  </script>
+</body>
+</html>

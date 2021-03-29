@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>this显示绑定2</title>
+</head>
+<body>
+  <script>
+    function foo(something, otherthing) {
+      console.log(this.a, something, otherthing)
+      return this.a + something + otherthing
+    }
+
+    var obj = {
+      a: 2
+    }
+
+    // bind可以实现函数柯里化
+    // 可以使用apply展开一个数组
+    function bind(obj, fn) {
+      var otherArg = [].slice.call(arguments, 2)
+
+      return function() {
+        var args = [...otherArg, ...arguments]
+        return fn.apply(obj, args)
+      }
+    }
+
+    var bar = bind(obj, foo, 3)
+    // var bar = foo.bind(obj) // ES5的bind函数会返回一个新函数
+    var result = bar(5)
+    console.log(result)
+  </script>
+</body>
+</html>

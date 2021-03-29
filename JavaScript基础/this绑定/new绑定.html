@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>new绑定</title>
+  </head>
+  <body>
+    <script>
+      // function Foo(a) {
+      //   this.a = a
+      // }
+
+      // var bar = new Foo(2)
+      // console.log(bar.a)
+
+      function foo(p1, p2) {
+        this.val = p1 + p2
+      }
+
+      // 之所以使用null是因为在本例中我们并不关心硬绑定的this是什么
+      // 反正使用new时this会被修改
+      var bar = foo.bind(null, 'p1')
+
+      var baz = new bar('p2')
+      console.log(baz.val) // p1p2
+    </script>
+  </body>
+</html>
