@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写一个bind函数</title>
+</head>
+<body>
+  <script>
+    var obj = {
+      value: 'jax'
+    }
+    function foo(arr1, arr2) {
+      this.age = 25
+      console.log(this.value)
+      debugger
+      return {
+        len1: arr1.length,
+        len2: arr2.length
+      }
+    }
+
+    foo.prototype.friend = 'bob'
+
+    // 基础版
+    Function.prototype.bind1 = function(context) {
+      var fn = this
+      var args = [...arguments].slice(1)
+      return function() {
+        var newArgs = [...args, ...arguments]
+        return fn.apply(context, newArgs)
+      }
+    }
+
+    // 第二版
+    // 1. 可以指定this，使用call/apply
+    // 2. 返回一个函数，return一个函数
+    // 3. 可以传入参数，使用arguments获取参数数组作为apply的第二个参数
+    // 4. 柯里化，返回的函数的参数同传入的参数合并成一个参数数组
+    // 5. 返回的函数作为构造函数，new一个实例对象，实例应该继承构造函数的原型
+    // 6. 调用bind的不是函数，应该抛出异常
+    Function.prototype.bind2 = function(context) {
+      if (typeof this !== 'function') {
+        throw new Error('Function.prototype.bind - what is trying to be bound is not callable')
+      }
+
+      var args = Array.prototype.slice.call(arguments, 1)
+      var that = this // 调用bind的函数
+      var fn = function() {
+        var newArgs = [...args, ...arguments]
+        // fn里面的this可能指向构造函数的实例
+        return that.apply(this instanceof fn ? this : context, newArgs)
+      }
+      fn.prototype = Object.create(this.prototype)
+      return fn
+    }
+    var bindFoo = foo.bind2(obj, [1, 2, 3])
+    var result = new bindFoo([4, 5])
+    console.log(result)
+    result.__proto__.friend = '王五'
+    console.log(foo.prototype.friend)
+  </script>
+</body>
+</html>

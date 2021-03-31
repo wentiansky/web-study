@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写一个call函数</title>
+</head>
+<body>
+  <script>
+    var value = 1
+    var obj = {
+      value: 2
+    }
+
+    function foo(name, age) {
+      console.log(this.value)
+      console.log(name)
+      console.log(age)
+      return 'over'
+    }
+
+    // 第一版
+    function call1() {
+      Function.prototype.call1 = function(context) {
+        context.fn = this
+        context.fn()
+        delete context.fn
+      }
+    }
+
+    // call1()
+    // foo.call1(obj)
+
+    // 第二版，可以传参数
+    function call2() {
+      Function.prototype.call2 = function(context) {
+        var args = []
+        for (var i = 1; i < arguments.length; i++) {
+          args.push(arguments[i])
+        }
+        context.fn = this
+        context.fn(...args)
+        delete context.fn
+      }
+    }
+
+    // call2()
+    // foo.call2(obj, 'jax', 25)
+
+    // 第三版
+    // 1. this可以传null或者undefined，此时指向window；
+    // 2. this可以传基本数据类型，原生的call会自动用Object()转换；
+    // 3. 函数可以有返回值；
+    function call3() {
+      Function.prototype.call3 = function(context) {
+        context = context ? Object(context) : window
+        var args = [...arguments].slice(1)
+        context.fn = this
+        var result = context.fn(...args)
+        delete context.fn
+        return result
+      }
+    }
+
+    call3()
+    var result = foo.call3(obj, 'jax', 25)
+    console.log(result)
+  </script>
+</body>
+</html>
