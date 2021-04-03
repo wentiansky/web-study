@@ -63,6 +63,34 @@
       }
     }
 
+    // 需要判断context本身是否有fn属性，如果有则生成一个新的fn属性
+    function gerateFn(context) {
+      var uniqFn = 'fn'
+      while(context.hasOwnProperty(uniqFn)) {
+        uniqFn = 'fn' + Math.random()
+      }
+      return uniqFn
+    }
+
+    // 递归生成新的fn属性
+    function recallFn(context) {
+      var uniqFn = 'fn' + Math.random()
+      if (context.hasOwnProperty(uniqFn)) {
+        return recallFn(context)
+      } else {
+        return uniqFn
+      }
+    }
+
+    var objx = {
+      fn: 1
+    }
+
+    // 或者使用es6的Symbol
+    // var fn = Symbol()
+    console.log(gerateFn(objx))
+    console.log(recallFn(objx))
+
     call3()
     var result = foo.call3(obj, 'jax', 25)
     console.log(result)
