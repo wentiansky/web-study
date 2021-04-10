@@ -86,11 +86,11 @@ person4.friends.push('bob')
 
 let person5 = Object.create(parent4)
 person5.friends.push('lys')
-console.log(person4.name)
-console.log(person4.name === person4.getName())
-console.log(person5.name)
-console.log(person4.friends)
-console.log(person5.friends)
+console.log(person4.name) // tom
+console.log(person4.name === person4.getName()) // true
+console.log(person5.name) // parent4
+console.log(person4.friends) // ['p1', 'p2', 'p3', 'bob', 'lys']
+console.log(person5.friends) // ['p1', 'p2', 'p3', 'bob', 'lys']
 ```
 
 ## 5. 第五种：寄生式继承

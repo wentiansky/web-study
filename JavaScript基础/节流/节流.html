@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>节流</title>
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      background-color: #000;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <button id="btn">取消节流</button>
+  <script>
+    // 节流：在n秒内频繁地触发事件，只会触发一次
+    const container = document.querySelector('#container')
+    const btn = document.querySelector('#btn')
+    let count = 0
+
+    const getUserAction = function(e) {
+      container.innerHTML = count++
+      console.log(this) // container Element
+      console.log(e) // MouseMove Event
+      return 'jax'
+    }
+
+    function throttle1 (fn, wait) {
+      let previous = 0
+      return function (...arg) {
+        let now = Date.now()
+        if (now - previous > wait) {
+          fn.apply(this, arg)
+          previous = now
+        }
+      }
+    }
+
+    function throttle2 (fn, wait) {
+      let timeout = null
+      return function (...arg) {
+        if (!timeout) {
+          timeout = setTimeout(() => {
+            timeout = null
+            fn.apply(this, arg)
+          }, wait)
+        }
+      }
+    }
+
+    container.addEventListener('mousemove', throttle2(getUserAction, 1000))
+  </script>
+</body>
+</html>

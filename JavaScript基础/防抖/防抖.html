@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖</title>
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      background-color: #000;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="btn">取消防抖</button>
+  <script>
+    // 防抖：尽管频繁的触发事件，但是在n秒后才会触发，如果在n秒内又触发了事件，以最新触发事件的时间为准，再过n秒后，才会触发事件。
+    const container = document.querySelector('#container')
+    const btn = document.querySelector('#btn')
+    let count = 0
+    const getUserAction = function(e) {
+      container.innerHTML = count++
+      console.log(this) // container Element
+      console.log(e) // MouseMove Event
+      return 'jax'
+    }
+
+    // 第一版
+    function debounce1 (fn, wait) {
+      let timeout = null
+      return function() {
+        clearTimeout(timeout)
+        timeout = setTimeout(fn, wait)
+      }
+    }
+
+    // 第二版，解决this指向和Event事件对象问题
+    function debounce2 (fn, wait) {
+      let timeout = null
+      return function() {
+        const context = this
+        const arg = arguments
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          fn.apply(context, arg)
+        }, wait)
+      }
+    }
+
+    // 第三版，立刻触发，等待n秒后，再触发
+    function debounce3 (fn, wait, immediate) {
+      let timeout = null
+      return function() {
+        const context = this
+        const arg = arguments
+        clearTimeout(timeout)
+        if (immediate) {
+          let callNow = !timeout
+          timeout = setTimeout(() => {
+            timeout = null
+          }, wait)
+          callNow && fn.apply(context, arg)
+        } else {
+          timeout = setTimeout(() => {
+            fn.apply(context, arg)
+          }, wait)
+        }
+      }
+    }
+
+    // 第四版，返回值
+    function debounce4 (fn, wait, immediate) {
+      let timeout = null
+      let result = null
+      return function() {
+        const context = this
+        const arg = arguments
+        clearTimeout(timeout)
+        if (immediate) {
+          let callNow = !timeout
+          timeout = setTimeout(() => {
+            timeout = null
+          })
+          callNow && (result = fn.apply(context, arg))
+        } else {
+          timeout = setTimeout(() => {
+            fn.apply(context, arg)
+          })
+        }
+      }
+    }
+
+    // 第五版，取消防抖
+    function debounce5 (fn, wait, immediate) {
+      let timeout = null
+      let result = null
+
+      let debounced = function () {
+        const context = this
+        const arg = arguments
+
+        clearTimeout(timeout)
+        if (immediate) {
+          let callNow = !timeout
+          timeout = setTimeout(() => {
+            timeout = null
+          }, wait)
+          callNow && (result = fn.apply(context, arg))
+        } else {
+          timeout = setTimeout(() => {
+            fn.apply(context, arg)
+          })
+        }
+
+        return result
+      }
+
+      debounced.cancel = function () {
+        clearTimeout(timeout)
+        timeout = null
+      }
+
+      return debounced
+    }
+
+    let setUserAction = debounce5(getUserAction, 10000, true)
+    container.addEventListener('mousemove', setUserAction)
+    btn.addEventListener('click', function() {
+      setUserAction.cancel()
+    })
+  </script>
+</body>
+</html>
