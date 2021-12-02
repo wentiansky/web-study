@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #table {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <table id="table">
+    <tr>
+      <td width="50%">111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</td>
+      <td width="50%"></td>
+    </tr>
+  </table>
+  <script>
+    var arr = [11, 22, 33, 44, 55, 66, 77]
+    var str = ''
+    // 输出<tr><td>11</td><td>22</td></tr><tr><td>33</td><td>44</td></tr><tr><td>55</td><td>66</td></tr><tr><td>77</td></tr>
+    var count = 0;
+    for(var i = 0; i < arr.length; i ++){
+      if(count++ === 0){
+        str += `<tr>`
+      }
+      str += `<td>${arr[i]}</td>`
+      if(count === 2){
+        str += `</tr>`
+        count = 0;
+      }
+    }
+    console.log(str)
+  </script>
+</body>
+</html>
