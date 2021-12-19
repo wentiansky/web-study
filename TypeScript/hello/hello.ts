@@ -2,5 +2,5 @@ function sayHello(person: string) {
   return 'hello, ' + person
 }
 
-let user = 'jax'
+let user = [1, 2]
 console.log(sayHello(user))
