@@ -4,6 +4,7 @@
 // 4. 可选参数
 // 5. 参数默认值
 // 6. 剩余参数
+// 7. 重载
 
 //函数声明
 function sum(x: number, y: number): number {
