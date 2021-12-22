@@ -1,8 +1,27 @@
-// 1. 类型断言(Type Assertion)可以手动指定值的类型；
-// 2. 语法；
+// 1. 类型断言(Type Assertion)可以手动指定值的类型;
+// 2. 语法;
+//   2-1. 值 as 类型 (建议使用);
+//   2-2. <类型> 值;
 // 3. 用途；
+//   3-1. 将联合类型断言为其中一个类型;
+//   3-2. 将一个父类断言为一个具体的子类；
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // ***************************例子***************************
-// 2-1. 语法1（建议）
+// 2-1. 语法1(建议)
 var a = 1;
 // 2-2. 语法2
 var b = 1;
@@ -28,10 +47,48 @@ var fishName = getName({
 //   }
 //   return false
 // }
+// 尽量避免断言后调用方法或引用深层属性，以减少不必要的运行时错误
 function isFish2(animal) {
     if (typeof animal.swim === 'function') {
         return true;
     }
     return false;
 }
+// 3-2. 将一个父类断言为更加具体的子类
+var ApiError = /** @class */ (function (_super) {
+    __extends(ApiError, _super);
+    function ApiError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.code = 0;
+        return _this;
+    }
+    return ApiError;
+}(Error));
+var HttpError = /** @class */ (function (_super) {
+    __extends(HttpError, _super);
+    function HttpError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.statusCode = 200;
+        return _this;
+    }
+    return HttpError;
+}(Error));
+function isApiError(error) {
+    if (typeof error.code === 'number') {
+        return true;
+    }
+    return false;
+}
+// 由于ApiError和HttpError是类，可以使用更合适的instanceof来判断
+function isApiError1(error) {
+    if (error instanceof ApiError) {
+        return true;
+    }
+    return false;
+}
+var apiErr = {
+    code: 400,
+    name: "",
+    message: ""
+};
 // ***************************例子***************************

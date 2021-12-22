@@ -4,7 +4,10 @@
 //   2-2. <类型> 值;
 // 3. 用途；
 //   3-1. 将联合类型断言为其中一个类型;
-//   3-2. 将一个父类断言为一个具体的子类；
+//   3-2. 将一个父类断言为一个具体的子类;
+//   3-3. 将any断言为一个具体的类型;
+// 4. 类型断言的限制;
+// 5. 双重断言;
 
 // ***************************例子***************************
 // 2-1. 语法1(建议)
@@ -73,4 +76,58 @@ function isApiError(error: Error) {
   }
   return false
 }
+
+// 由于ApiError和HttpError是类，可以使用更合适的instanceof来判断
+function isApiError1(error: Error) {
+  if (error instanceof ApiError) {
+    return true
+  }
+  return false
+}
+
+// 如果ApiError和HttpError是接口，就不适用instanceof来判断了
+interface ApiError1 extends Error {
+  code: number
+}
+
+interface HttpError1 extends Error {
+  statusCode: number
+}
+const apiErr: ApiError1 = {
+  code: 400,
+  name: '',
+  message: '',
+}
+
+// 将任何一个类型断言为any
+window.foo = 1(
+  // 报错
+  window as any
+).foo = 2
+
+// 将any断言为一个具体的类型
+function getCacheData(key: string): any {
+  return (window as any).cache[key]
+}
+interface Dog {
+  name: string
+}
+
+const dog = getCacheData('wangchai') as Dog
+console.log(dog.name)
+
+// 类型兼容
+interface Animal1 {
+  name: string;
+}
+interface Cat1 {
+  name: string;
+  run(): void;
+}
+// 等价于
+interface Cat1 extends Animal1 {
+  run(): void;
+}
+// Animal1兼容Cat1，可以互相类型断言
+
 // ***************************例子***************************
