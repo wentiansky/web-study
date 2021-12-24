@@ -7,7 +7,10 @@
 //   3-2. 将一个父类断言为一个具体的子类;
 //   3-3. 将any断言为一个具体的类型;
 // 4. 类型断言的限制;
-// 5. 双重断言;
+// 5. 双重断言(一般不使用);
+// 6. 类型断言 VS 类型转换；
+// 7. 类型断言 VS 类型声明；
+// 8. 类型断言 VS 泛型；
 
 // ***************************例子***************************
 // 2-1. 语法1(建议)
@@ -124,10 +127,19 @@ interface Cat1 {
   name: string;
   run(): void;
 }
+
+interface Fish1 {
+  name: string
+  swim(): void
+}
 // 等价于
 interface Cat1 extends Animal1 {
   run(): void;
 }
 // Animal1兼容Cat1，可以互相类型断言
 
+// 双重断言
+function testCat1(cat: Cat1) {
+  return (cat as any as Fish1)
+}
 // ***************************例子***************************
