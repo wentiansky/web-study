@@ -103,3 +103,17 @@ declare function foo(): string
 declare namespace foo {
   const bar: string
 }
+
+// 扩展全局变量类型
+declare global {
+  interface String {
+    foo(): string
+  }
+}
+export {} // 默认导出空对象
+
+// 扩展模块插件
+import * as moment from 'moment'
+declare module 'moment' {
+  export const name: string
+}
