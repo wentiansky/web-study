@@ -117,3 +117,15 @@ import * as moment from 'moment'
 declare module 'moment' {
   export const name: string
 }
+
+// 需要引入全局变量的声明文件时，使用三斜线指令
+/// <reference types="node" />
+
+// 拆分声明文件
+// node_modules/@types/jquery/index.d.ts
+/// <reference types="sizzle" />
+/// <reference path="JQueryStatic.d.ts" />
+/// <reference path="JQuery.d.ts" />
+/// <reference path="misc.d.ts" />
+/// <reference path="legacy.d.ts" />
+// types用于声明对另一个库的依赖，path用于对另一个文件的依赖
