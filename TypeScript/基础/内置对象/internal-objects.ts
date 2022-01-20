@@ -12,3 +12,13 @@ document.addEventListener('click', function(e: MouseEvent) {
 })
 
 Math.pow(10, '2');
+interface Math {
+  pow(x: number, y: number): number
+}
+
+document.addEventListener('click', function(e) {
+  console.log(e.abc)
+})
+interface Document extends Node, GlobalEventHandlers, NodeSelector, DocumentEvent {
+  addEventListener(type: string, listener: (event: MouseEvent) => any, useCapture?: boolean): void
+}
