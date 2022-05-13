@@ -4,3 +4,8 @@
 3. 将文件夹`C:\Users\(本地用户名)\.ssh`下的`id_rsa.pub`全部复制；
 4. 登录github，新建一个SSH，粘贴；
 5. 在bash.exe中输入`ssh -T git@github.com`，然后会跳出一堆内容你只需输入yes回车就完事了，然后他会提示你成功了
+
+## TortoiseGit更换SSH客户端
+
+1. TortoiseGit -> Settings -> Network -> SSH -> SSH client
+2. 将 `tortoisegitplink.exe` 替换成 `D:\develop tools\Git\usr\bin\ssh.exe` (Git安装目录)
