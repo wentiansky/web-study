@@ -6,3 +6,4 @@ UMD模式通常尝试提供与当今最流行的脚本加载器的兼容性(例�
 
   * amdWeb.js: 定义一个与 `AMD` 和浏览器全局变量一起使用的模块。
   * returnExport.js: 定义一个在 `Node` 、 `AMD` 和浏览器全局变量中工作的模块。
+  * commonjsStrict.js: 定义一个可以更多和 `CommonJS` 运行时一起使用。
