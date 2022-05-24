@@ -10,6 +10,8 @@
  * @param {number} n
  * @return {ListNode}
  */
+
+// 自己的做法
 var removeNthFromEnd = function (head, n) {
   let len = 0, p = head, i = 0
 
