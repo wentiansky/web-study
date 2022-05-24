@@ -11,8 +11,10 @@
  * @return {ListNode}
  */
 
-// 自己的做法
-var removeNthFromEnd = function (head, n) {
+/**
+ * 1. 自己的做法
+ */
+var removeNthFromEnd1 = function (head, n) {
   let len = 0, p = head, i = 0
 
   // 先遍历获取链表的长度
@@ -41,3 +43,27 @@ var removeNthFromEnd = function (head, n) {
   console.log('result: ', p)
   return p
 };
+
+
+
+
+/**
+ * 2. 添加空结点再删除
+ */
+var removeNthFromEnd2 = function (head, n) {
+  let dummy = {
+    next: head
+  } // 等价于 let dummy = new ListNode(null, head)
+  let p = dummy
+  let len = 0
+
+  while (head) {
+    len++
+    head = head.next
+  }
+  for (let i = 1; i < len - n + 1; i++)  {
+    p = p.next
+  }
+  p.next = p.next.next
+  return dummy.next
+}
