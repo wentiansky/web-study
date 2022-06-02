@@ -44,9 +44,6 @@ var removeNthFromEnd1 = function (head, n) {
   return p
 };
 
-
-
-
 /**
  * 2. 添加空结点再删除
  */
@@ -61,9 +58,38 @@ var removeNthFromEnd2 = function (head, n) {
     len++
     head = head.next
   }
-  for (let i = 1; i < len - n + 1; i++)  {
+  for (let i = 1; i < len - n + 1; i++) {
     p = p.next
   }
   p.next = p.next.next
   return dummy.next
+}
+
+/**
+ * 3. 栈的方法
+ */
+var removeNthFromEnd3 = function (head, n) {
+  let dummy = new ListNode(null, head)
+  let p = dummy
+  let stack = []
+
+  while (p) {
+    stack.push(p)
+    p = p.next
+  }
+  // 弹出倒数n个结点
+  for (let i = 0; i < n; i++) {
+    stack.pop()
+  }
+  // p指向倒数第n个结点的前一个结点
+  p = stack[stack.length - 1]
+  p.next = p.next.next
+  return dummy.next
+}
+
+/**
+ * 4. 空结点 + 快慢指针的方法
+ */
+var removeNthFromEnd4 = function (head, n) {
+  
 }
