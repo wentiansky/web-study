@@ -91,5 +91,16 @@ var removeNthFromEnd3 = function (head, n) {
  * 4. 空结点 + 快慢指针的方法
  */
 var removeNthFromEnd4 = function (head, n) {
-  
+  let dummy = new ListNode(null, head)
+  let first = head
+  let second = dummy
+  for (let i = 0; i < n; i++) {
+    first = first.next
+  }
+  while (first) {
+    first = first.next
+    second = second.next
+  }
+  second.next = second.next.next
+  return dummy.next
 }
