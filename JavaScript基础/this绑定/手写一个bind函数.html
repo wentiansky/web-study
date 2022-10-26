@@ -26,7 +26,7 @@
     // 基础版
     Function.prototype.bind1 = function(context) {
       var fn = this
-      var args = [...arguments].slice(1)
+      var args = [...arguments].slice(1) // 或者Array.prototype.slice.call(arguments, 1)
       return function() {
         var newArgs = [...args, ...arguments]
         return fn.apply(context, newArgs)
