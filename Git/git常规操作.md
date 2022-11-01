@@ -1,6 +1,16 @@
 # git常规操作
 
-## 1. rebase代替merge
+## 1. 提交规范
+  - feat: 新功能(feature)
+  - fix: 修补bug
+  - docs: 文档
+  - style: 格式(不影响代码行的变动)，如空格、空行、逗号和格式化等
+  - refactor: 重构(既不是新增功能，也不是修改bug的代码变动)
+  - perf: 性能优化
+  - test: 增加测试
+  - chore: 构建工程或辅助工具的变动
+
+## 2. rebase代替merge
   * 使用场景：rebase的来源分支不是多人开发，因为rebase会改变提交记录
 
   ```bash
@@ -13,7 +23,7 @@
 
   ```
 
-## 2. 回退提交
+## 3. 回退提交
 
 + > `git reset [<mode>] [<commit>]`
 
@@ -60,7 +70,7 @@
     git revert d9ad4d1fe5fcca1e0525e5a9e3bedf8e7c08b402
   ```
 
-## 3. fork了一个开源项目，更新本地项目tag到最新版本
+## 4. fork了一个开源项目，更新本地项目tag到最新版本
 
 ```bash
 # 查看远程
@@ -73,7 +83,7 @@ git push --tags
 git tag
 ```
 
-## 4. 挑选提交
+## 5. 挑选提交
 
 > git cherry-pick
 
