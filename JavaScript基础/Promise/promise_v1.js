@@ -42,6 +42,48 @@ function Promise_v1(fn) {
     }
   }
 
+  this.reject = function (value) {
+    return new Promise_v1((resolve, reject) => reject(value))
+  }
+
+  this.all = function (arr) {
+    let args = Array.prototype.slice.call(arr)
+    return new Promise_v1((resolve, reject) => {
+      if (args.length === 0) return resolve([])
+      let remaining = args.length
+      function res(i, val) {
+        try {
+          if (val && (typeof val === 'object' || typeof val === 'function')) {
+            const { then } = val
+            if (typeof then === 'function') {
+              then.call(val, val => {
+                res(i, val)
+              }, reject)
+              return
+            }
+          }
+          args[i] = val
+          if (--remaining === 0) {
+            resolve(args)
+          }
+        } catch(err) {
+          reject(err)
+        }
+      }
+      for (let i = 0; i < args.length; i++) {
+        res(i, args[i])
+      }
+    })
+  }
+
+  this.race = function(values) {
+    return new Promise_v1((resolve, reject) => {
+      for (let i = 0; i < values.length; i++) {
+        values[i].then(resolve, reject)
+      }
+    })
+  }
+
   function handle (callback) {
     if (state === 'pending') {
       callbacks.push(callback)
