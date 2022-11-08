@@ -38,14 +38,6 @@
     # 回退提交的修改仍在index(暂存区)中，无需再次执行git add
     git status
   ```
-  
-  - **--hard**
-
-  ```bash
-    # 使用--hard会修改index(暂存)和working tree(工作目录)
-    # 彻底还原上一次状态且无法找回
-    git reset --hard d9ad4d1fe5fcca1e0525e5a9e3bedf8e7c08b402
-  ```
 
   - **--mixed**
 
@@ -54,7 +46,15 @@
     # 需要执行git add
     git reset --mixed d9ad4d1fe5fcca1e0525e5a9e3bedf8e7c08b402
   ```
-  
+
+  - **--hard**
+
+  ```bash
+    # 使用--hard会修改index(暂存)和working tree(工作目录)
+    # 彻底还原上一次状态且无法找回
+    git reset --hard d9ad4d1fe5fcca1e0525e5a9e3bedf8e7c08b402
+  ```
+
   - **强制推送到远程仓库**
 
   ```bash
