@@ -24,5 +24,5 @@ export const createThen2 = function() {
   )
 }
 
-createThen1()
+// createThen1()
 // createThen2()
