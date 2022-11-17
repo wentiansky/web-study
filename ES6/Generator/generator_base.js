@@ -6,6 +6,11 @@
  * 4. 调用Iterator的next方法，指向下一个状态
  */
 
+// 原理：Regenerator 通过工具函数将生成器函数包装，为其添加如 next/return 等方法。
+// 同时也对返回的生成器对象进行包装，使得对 next 等方法的调用，
+// 最终进入由 switch case 组成的状态机模型中。
+// 除此之外，利用闭包技巧，保存生成器函数上下文信息。
+
 export const createGenerator1 = function () {
   function* hello() {
     yield 'hello'
@@ -18,7 +23,7 @@ export const createGenerator1 = function () {
   // { value: 'hello', done: false }
   const step2 = res.next()
   console.log('step2: ', step2)
-  // { value: 'world', done: false }
+  // { value: 'world', done: false } 
   const step3 = res.next()
   console.log('step3: ', step3)
   // { value: 'ending', done: true }
@@ -52,14 +57,14 @@ export const createGenerator3 = function () {
       }
     }
   };
-  
+
   for (const i of flat(arr)) {
     console.log(i);
   }
   // 1, 2, 3, 4, 5, 6
 }
 
-export const createGenerator4 = function() {
+export const createGenerator4 = function () {
   function* demo() {
     console.log('hello' + (yield 123))
   }
@@ -70,9 +75,9 @@ export const createGenerator4 = function() {
   console.log('step2: ', step2)
 }
 
-export const createGenerator5 = function() {
+export const createGenerator5 = function () {
   const myIterable = {}
-  myIterable[Symbol.iterator] = function* ()  {
+  myIterable[Symbol.iterator] = function* () {
     yield 1
     yield 2
     yield 3
@@ -82,11 +87,11 @@ export const createGenerator5 = function() {
 
 // next方法可以传入参数，设置上一次yield表达式的值
 // 第一次向next方法传参，会被浏览器忽略
-export const createGenerator6 = function() {
+export const createGenerator6 = function () {
   function* foo(x) {
     // const y = 2 * (yield(x + 1))
     const y = 2 * (yield 6)
-    const z = yield(y / 3)
+    const z = yield (y / 3)
     return (x + y + z)
   }
   const a = foo(5)
@@ -101,7 +106,7 @@ export const createGenerator6 = function() {
 }
 
 // 向Generator函数内部输入值
-export const createGenerator7 = function() {
+export const createGenerator7 = function () {
   function* dataConsumer() {
     console.log('started')
     console.log(`1. ${yield}`)
@@ -115,27 +120,27 @@ export const createGenerator7 = function() {
 }
 
 // 第一次调用next方法，能够输入值
-export const createGenerator8 = function() {
+export const createGenerator8 = function () {
   function wrapper(generatorFunction) {
-    return function(...args) {
+    return function (...args) {
       let generatorObject = generatorFunction(...args)
       generatorObject.next()
       return generatorObject
     }
   }
   const wrapped = wrapper(function* () {
-    console.log(`First input: ${ yield }`)
+    console.log(`First input: ${yield}`)
     return 'DONE'
   })
   wrapped().next('hello')
 }
 
 // 用for...of遍历对象(第一种方式)
-export const createGenerator9 = function() {
+export const createGenerator9 = function () {
   let jane = { first: 'Jane', last: 'Doe' }
   function* objectEntries(obj) {
     let propKeys = Reflect.ownKeys(obj)
-    for(let propKey of propKeys) {
+    for (let propKey of propKeys) {
       yield [propKey, obj[propKey]]
     }
   }
@@ -146,11 +151,11 @@ export const createGenerator9 = function() {
 }
 
 // 用for...of遍历对象(第二种方式)
-export const createGenerator10 = function() {
+export const createGenerator10 = function () {
   let jane = { first: 'Jane', last: 'Doe' }
   function* objectEntries() {
     let propKeys = Object.keys(this)
-    for(let propKey of propKeys) {
+    for (let propKey of propKeys) {
       yield [propKey, this[propKey]]
     }
   }

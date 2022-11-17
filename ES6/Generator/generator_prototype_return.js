@@ -46,4 +46,4 @@ export const createGeneratorReturn2 = function () {
 }
 
 // createGeneratorReturn1()
-createGeneratorReturn2()
+// createGeneratorReturn2()
