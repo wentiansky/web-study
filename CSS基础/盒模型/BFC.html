@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFC</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box1 {
+      overflow: hidden;
+      background-color: bisque;
+    }
+    .p1 {
+      margin: 10px auto 20px;
+      background-color: aquamarine;
+    }
+
+    .box2 {
+      margin-top: 10px;
+      background-color: blueviolet;
+    }
+    .left {
+      float: left;
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+    .right {
+      overflow: hidden;
+      height: 120px;
+      background-color: #ccc;
+    }
+    .hr {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>BFC场景一：</h2>
+  <p class="p1">1</p>
+  <!-- 创建BFC -->
+  <div class="box1">
+    <p class="p1">2</p>
+  </div>
+  <p class="p1">3</p>
+  <p class="p1">4</p>
+
+  <hr class="hr" />
+
+  <h2>BFC场景一：</h2>
+  <div class="box2">
+    <div class="left"></div>
+    <!-- 创建BFC -->
+    <div class="right"></div>
+  </div>
+</body>
+
+</html>
