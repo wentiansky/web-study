@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .box {
+      display: flex;
+      border: 1px solid #000;
+    }
+    .first {
+      height: 100px;
+      background-color: antiquewhite;
+      flex: 1 1 auto;
+    }
+    .second {
+      background-color: aqua;
+      flex: 1 1 auto;
+    }
+    .third {
+      background-color: blueviolet;
+      flex: 1 1 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="first">111</div>
+    <span class="second">222</span>
+    <span class="third">333</span>
+  </div>
+</body>
+
+</html>
