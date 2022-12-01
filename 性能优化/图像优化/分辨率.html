@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分辨率</title>
+</head>
+<body>
+  <!-- 使用img标签的srcset属性 -->
+  <img src="./img/photo.png" srcset="./img/photo@2x.png 2x, ./img/photo@3x.png 3x" alt="photo">
+
+  <!-- 使用picture标签和source标签 + img标签 -->
+  <picture>
+    <source media="(min-width:800px)" srcset="./img/photo.png, ./img/photo@2x.png 2x">
+    <source media="(min-width:450px)" srcset="./img/photo-s.png, ./img/photo-s@2x.png 2x">
+    <img src="./img/photo.png" alt="photo">
+  </picture>
+</body>
+</html>
