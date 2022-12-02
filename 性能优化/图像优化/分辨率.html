@@ -16,5 +16,15 @@
     <source media="(min-width:450px)" srcset="./img/photo-s.png, ./img/photo-s@2x.png 2x">
     <img src="./img/photo.png" alt="photo">
   </picture>
+
+  <!-- 父级设置display: none会加载图片 -->
+  <div style="display: none;">
+    <img src="https://p3-passport.byteimg.com/img/user-avatar/a150cb374f6985d5ebc580d0b6a2a400~180x180.awebp" alt="">
+  </div>
+
+  <!-- 父级设置display: none不会加载css的背景图片 -->
+  <div style="display: none;">
+    <div style="width: 200px; height: 186px; background-image: url(https://p3-passport.byteimg.com/img/user-avatar/a150cb374f6985d5ebc580d0b6a2a400~180x180.awebp);"></div>
+  </div>
 </body>
 </html>
