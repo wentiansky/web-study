@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Awesome Font';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/awesome.woff2') format('woff2'),
+    url('/fonts/awesome.woff') format('woff'),
+    url('/fonts/awesome.ttf') format('ttf'),
+    url('/fonts/awesome.eot') format('eot'),
+    /* 子集范围 */
+    unicode-range: U+100-3ff, U+f??
+}
