@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,17 +12,31 @@
       padding: 0;
       overflow: hidden;
     }
-    .box1 {
-      width: 100px;
-      height: 100px;
-      background-color: aqua;
-      margin-top: 500px;
-      margin-left: 800px;
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto 300px;
+      width: 600px;
+      height: 300px;
     }
   </style>
 </head>
+
 <body>
-  <div class="box1"></div>
-  <script src="./lazyload1.js"></script>
+  <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner01.png" alt="">
+  <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner02.png" alt="">
+  <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner03.jpg" alt="">
+  <!-- <script src="./lazyload1.js"></script> -->
+  <script src="./lazyload2.js"></script>
 </body>
+
 </html>
