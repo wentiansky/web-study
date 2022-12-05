@@ -35,6 +35,15 @@
   <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner01.png" alt="">
   <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner02.png" alt="">
   <img class="lazy" src="./img/base64.jpeg" data-src="./img/banner03.jpg" alt="">
+
+  <!-- 测试chrome原生懒加载 -->
+  <!-- 由浏览器决定是否延迟加载 -->
+  <img src="./img/banner01.png" loading="auto" alt="">
+  <!-- 立刻加载图片 -->
+  <img src="./img/banner02.png" loading="eager" alt="">
+  <!-- 延迟加载 -->
+  <img src="./img/banner03.jpg" loading="lazy" alt="">
+
   <!-- <script src="./lazyload1.js"></script> -->
   <script src="./lazyload2.js"></script>
 </body>
