@@ -28,6 +28,9 @@
       width: 600px;
       height: 300px;
     }
+    .box {
+      display: none;
+    }
   </style>
 </head>
 
@@ -38,12 +41,14 @@
 
   <!-- 测试chrome原生懒加载 -->
   <!-- 由浏览器决定是否延迟加载 -->
-  <img src="./img/banner01.png" loading="auto" alt="">
-  <!-- 立刻加载图片 -->
-  <img src="./img/banner02.png" loading="eager" alt="">
-  <!-- 延迟加载 -->
-  <img src="./img/banner03.jpg" loading="lazy" alt="">
-
+  <div class="box">
+    <img src="./img/banner01.png" loading="auto" alt="">
+    <!-- 立刻加载图片 -->
+    <img src="./img/banner02.png" loading="eager" alt="">
+    <!-- 延迟加载 -->
+    <img src="./img/banner03.jpg" loading="lazy" alt="">
+  </div>
+  
   <!-- <script src="./lazyload1.js"></script> -->
   <script src="./lazyload2.js"></script>
 </body>
