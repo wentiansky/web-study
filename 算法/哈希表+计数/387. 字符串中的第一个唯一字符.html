@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>387. 字符串中的第一个唯一字符</title>
+</head>
+
+<body>
+  <script>
+    /** 
+     * 自己的做法
+     * @param {string} s
+     * @return {number}
+     */
+    var firstUniqChar1 = function (s) {
+      const map = new Map()
+      for (let char of s) {
+        if (map.has(char)) {
+          let num = map.get(char)
+          map.set(char, ++num)
+        } else {
+          map.set(char, 1)
+        }
+      }
+      for (let i = 0; i < s.length; i++) {
+        if (map.get(s[i]) === 1) return i
+      }
+      return -1
+    }
+
+    const result1Case1 = firstUniqChar1('leetcode')
+    const result1Case2 = firstUniqChar1('loveleetcode')
+    const result1Case3 = firstUniqChar1('aabb')
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`leetcode: ${result1Case1}`)
+    document.write('<br/>')
+    document.write(`loveleetcode: ${result1Case2}`)
+    document.write('<br/>')
+    document.write(`aabb: ${result1Case3}`)
+    document.write('<br/><br/><br/>')
+    /**
+     * 对象存储
+     * @param {string} s
+     * @return {number}
+     */
+    var firstUniqChar2 = function (s) {
+      const map = {}
+      for (let char of s) map[char] = (map[char] || 0) + 1
+      for (let i = 0; i < s.length; i++) if (map[s[i]] === 1) return i
+      return -1
+    }
+
+    const result2Case1 = firstUniqChar1('leetcode')
+    const result2Case2 = firstUniqChar1('loveleetcode')
+    const result2Case3 = firstUniqChar1('aabb')
+    document.write('方法二：')
+    document.write('<br/>')
+    document.write(`leetcode: ${result2Case1}`)
+    document.write('<br/>')
+    document.write(`loveleetcode: ${result2Case2}`)
+    document.write('<br/>')
+    document.write(`aabb: ${result2Case3}`)
+  </script>
+</body>
+
+</html>
