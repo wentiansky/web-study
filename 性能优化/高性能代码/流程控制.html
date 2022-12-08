@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>流程控制</title>
+  </head>
+  <body>
+    <script>
+      // 策略模式
+      const strategies = {
+        S: (salary) => salary * 4,
+        A: (salary) => salary * 3,
+        B: (salary) => salary * 2,
+      }
+      function calculateBonus(salary, level) {
+        return strategies[level](salary)
+      }
+    </script>
+  </body>
+</html>

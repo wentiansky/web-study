@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据存取</title>
+  </head>
+  <body>
+    <script>
+      // 作用域和作用域链
+      function plus(num) {
+        return num + 1
+      }
+      const ret = plus(6)
+
+      // 对局部变量的使用
+      function process() {
+        const doc = document
+        const target = doc.getElementById('target')
+        const imgs = doc.getElementsByClassName('img')
+        const len = imgs.length
+        for (let i = 0; i < len; i++) {
+          const img = imgs[i]
+          // ...
+          target.appendChild(img)
+        }
+      }
+
+      // 作用域链的增长
+      const param = {
+        name: 'Tian',
+        value: 500,
+      }
+      function show() {
+        const cnt = 2
+        with (param) {
+          console.log(`name is ${name}`)
+        }
+      }
+
+      // 警惕闭包的使用
+      function mkFunc() {
+        const name = 'Tian'
+        return function showName() {
+          console.log(name)
+        }
+      }
+      const myFunc = mkFunc()
+      myFunc()
+    </script>
+  </body>
+</html>

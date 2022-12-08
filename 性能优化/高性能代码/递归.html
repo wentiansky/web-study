@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>递归</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 递归实现归并排序
+       */
+      function merge(left, right) {
+        const result = []
+        while (left.length > 0 && right.length > 0) {
+          // 把最小的先取出来放到结果中
+          if (left[0] < right[0]) {
+            result.push(left.shift())
+          } else {
+            result.push(right.shift())
+          }
+        }
+        return [...result, ...left, ...right]
+      }
+
+      // 递归函数
+      function mergeSort(array) {
+        if (array.length === 1) return array
+        const middle = Math.floor(array.length / 2)
+        const left = array.slice(0, middle)
+        const right = array.slice(middle)
+        return merge(mergeSort(left), mergeSort(right))
+      }
+
+      /**
+       * 迭代方式改写递归函数
+       */
+      function mergeSort1(array) {
+        if (array.length === 1) return
+        const len = array.length
+        const work = []
+        for (let i = 0; i < len; i++) {
+          work.push([array[i]])
+        }
+        // 确保数组长度为偶数
+        if (len & 1) work.push([])
+        for (let lim = len; lim > 1; lim = (lim + 1) / 2) {
+          for (let j = 0, k = 0; k < lim; j += 1, k += 2) {
+            work[j] = merge(work[k], work[k + 1])
+          }
+          // 数组长度为奇数，补一个空数组
+          if (lim & 1) work[j] = []
+        }
+        return work[0]
+      }
+
+      /**
+       * 计算某个数的阶乘
+       */
+      function factorial(n) {
+        if (n === 0) {
+          return 1
+        } else {
+          return n * factorial(n - 1)
+        }
+      }
+
+      /**
+       * 计算某个数的阶乘，利用缓存避免重复计算
+       */
+      function memorize(func, cache) {
+        const cache = cache || {}
+        return function(args) {
+          if (!cache.hasOwnProperty(args)) {
+            cache[args] = func(args)
+          }
+          return cache[args]
+        }
+      }
+      const memorizeFactorial = memorize(factorial, {0: 1, 1: 1})
+    </script>
+  </body>
+</html>
