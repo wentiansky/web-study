@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>191. 位1的个数</title>
+</head>
+<body>
+  <script>
+    /** 
+     * 自己的做法
+     * 编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 '1' 的个数（也被称为汉明重量）。
+     * @param {number} n
+     * @return {number}
+     */
+    var hammingWeight1 = function(n) {
+      const str = n.toString(2)
+      console.log('str: ', str)
+      let count = 0
+      for (let i = 0; i < str.length; i++) {
+        if (+str[i] === 1) {
+          count++
+        }
+      }
+      return count
+    }
+    const result1Case1 = hammingWeight1(00000000000000000000000000001011)
+    const result1Case2 = hammingWeight1(00000000000000000000000010000000)
+    const result1Case3 = hammingWeight1(11111111111111111111111111111101)
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`n=00000000000000000000000000001011: ${result1Case1}`)
+    document.write('<br/>')
+    document.write(`n=00000000000000000000000010000000: ${result1Case2}`)
+    document.write('<br/>')
+    document.write(`n=11111111111111111111111111111101: ${result1Case3}`)
+    document.write('<br/><br/><br/>')
+  </script>
+</body>
+</html>
