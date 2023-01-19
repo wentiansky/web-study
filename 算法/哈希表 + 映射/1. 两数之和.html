@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1. 两数之和</title>
+</head>
+<body>
+  <script>
+    /** 
+     * 自己的做法
+     * 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    var twoSum1 = function (nums, target) {
+      const map = {}
+      let n = 0
+      for (let i = 0; i < nums.length; i++) {
+        n = target - nums[i]
+        if (map.hasOwnProperty(n)) {
+          console.log([i, map[n]].sort())
+          return [i, map[n]].sort()
+        } else {
+          map[nums[i]] = i
+        }
+      }
+      return []
+    }
+    const result1Case1 = twoSum1([2,7,11,15], 9)
+    const result1Case2 = twoSum1([3,2,4], 6)
+    const result1Case3 = twoSum1([3,3], 6)
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`nums=[2,7,11,15], target=9: ${result1Case1}`)
+    document.write('<br/>')
+    document.write(`nums=[3,2,4], target=6: ${result1Case2}`)
+    document.write('<br/>')
+    document.write(`nums=[3,3], target=6: ${result1Case3}`)
+    document.write('<br/><br/><br/>')
+  </script>
+</body>
+</html>
