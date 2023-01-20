@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>349. 两个数组的交集</title>
+</head>
+<body>
+  <script>
+    /** 
+     * 自己的做法
+     * 给定两个数组 nums1 和 nums2 ，返回 它们的交集 。输出结果中的每个元素一定是 唯一 的。我们可以 不考虑输出结果的顺序 。
+     * @param {number[]} nums1
+     * @param {number[]} nums2
+     * @return {number[]}
+     */
+    var intersection1 = function(nums1, nums2) {
+      const map = {}
+      let result = []
+      for (let i = 0 ; i < nums1.length; i++) {
+        map[nums1[i]] = 1
+      }
+      console.log(map)
+      for (let j = 0 ; j < nums2.length; j++) {
+        if (map.hasOwnProperty(nums2[j]) && result.findIndex(item => item === nums2[j]) === -1) {
+          result.push(nums2[j])
+        }
+      }
+      return result
+    };
+    const result1Case1 = intersection1([1,2,2,1], [2,2])
+    const result1Case2 = intersection1([4,9,5], [9,4,9,8,4])
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`nums1=[1,2,2,1], nums2=[2,2]: ${result1Case1}`)
+    document.write('<br/>')
+    document.write(`nums1=[4,9,5], nums2=[9,4,9,8,4]: ${result1Case2}`)
+    document.write('<br/><br/><br/>')
+  </script>
+</body>
+</html>
