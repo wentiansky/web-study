@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>13. 罗马数字转整数</title>
+</head>
+<body>
+  <script>
+    /**
+     * 自己的做法
+     * 罗马数字包含以下七种字符: I， V， X， L，C，D 和 M
+     * @param {string} s
+     * @return {number}
+     */
+    var romanToInt1 = function(s) {
+      const map = {
+        I: 1,
+        V: 5,
+        X: 10,
+        L: 50,
+        C: 100,
+        D: 500,
+        M: 1000,
+        IV: 4,
+        IX: 9,
+        XL: 40,
+        XC: 90,
+        CD: 400,
+        CM: 900
+      }
+      let index = 0, sum = 0
+
+      while(index < s.length) {
+        if (index + 1 < s.length && map[s.slice(index, index + 2)]) {
+          sum += map[s.slice(index, index + 2)]
+          index += 2
+        } else {
+          sum += map[s.slice(index, index + 1)]
+          index += 1
+        }
+      }
+      return sum
+    };
+    const result1Case1 = romanToInt1('III')
+    const result1Case2 = romanToInt1('IV')
+    const result1Case3 = romanToInt1('IX')
+    const result1Case4 = romanToInt1('LVIII')
+    const result1Case5 = romanToInt1('MCMXCIV')
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`s='III': ${result1Case1}`)
+    document.write('<br/>')
+    document.write(`s='IV': ${result1Case2}`)
+    document.write('<br/>')
+    document.write(`s='IX': ${result1Case3}`)
+    document.write('<br/>')
+    document.write(`s='LVIII': ${result1Case4}`)
+    document.write('<br/>')
+    document.write(`s='MCMXCIV': ${result1Case5}`)
+    document.write('<br/><br/><br/>')
+  </script>
+</body>
+</html>
