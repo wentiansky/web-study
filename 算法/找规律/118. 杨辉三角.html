@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>118. 杨辉三角</title>
+</head>
+<body>
+  <script>
+    /**
+     * 自己的做法
+     * 给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。
+     * 在「杨辉三角」中，每个数是它左上方和右上方的数的和。
+     * @param {number} numRows
+     * @return {number[][]}
+     */
+    // 思路：
+    // 1. 因为输出结果为二维数组，故使用双重for循环
+    // 2. 规律一：每一行的首尾都是1，即j === 0 || j === i，数组push 1
+    // 3. 规律二：[当前行][当前列]的数 = [上一行][当前列的前一列]的数 + [上一行][当前列]的数
+    var generate1 = function(numRows) {
+      let result = []
+      for (let i = 0; i < numRows; i++) {
+        let arr = []
+        for (let j = 0; j <= i; j++) {
+          if (j === 0 || j === i) {
+            arr.push(1)
+          } else {
+            arr.push(result[i - 1][j - 1] + result[i - 1][j])
+          }
+        }
+        result.push(arr)
+      }
+      return result
+    };
+    const result1Case1 = generate1(1)
+    console.log(result1Case1)
+    document.write('方法一：')
+    document.write('<br/>')
+    document.write(`numRows=5: ${result1Case1}`)
+  </script>
+</body>
+</html>
