@@ -23,6 +23,7 @@
       let min = prices[0], profit = 0
       for (let i = 1; i < prices.length; i++) {
         if (prices[i] < min) {
+          debugger
           min = prices[i]
         } else {
           profit = Math.max(profit, prices[i] - min)
@@ -31,12 +32,12 @@
       return profit
     };
     const result1Case1 = maxProfit1([7,1,5,3,6,4])
-    const result1Case2 = maxProfit1([2,4,1])
+    // const result1Case2 = maxProfit1([2,4,1])
     document.write('方法一：')
     document.write('<br/>')
     document.write(`prices=[7,1,5,3,6,4]: ${result1Case1}`)
     document.write('<br/>')
-    document.write(`prices=[2,4,1]: ${result1Case2}`)
+    // document.write(`prices=[2,4,1]: ${result1Case2}`)
   </script>
 </body>
 </html>
