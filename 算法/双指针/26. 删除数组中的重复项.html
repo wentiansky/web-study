@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>26. 删除数组中的重复项</title>
+</head>
+<body>
+  <script>
+    /**
+     * 自己的做法
+     * 给你一个 升序排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。
+     * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+     * @param {ListNode} head
+     * @return {ListNode}
+     */
+     var removeDuplicates = function(nums) {
+      let i = 0;
+      for(let j = 1; j < nums.length; j++){
+          if(nums[j] !== nums[i]){
+              nums[i+1] = nums[j];
+              i++
+          }
+      }
+      return i + 1
+    };
+  </script>
+</body>
+</html>
