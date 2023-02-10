@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>event-demo</title>
-  </head>
-  <body>
-    <div
-      id="outSide"
-      style="width: 100px; height: 100px; background: #000; padding: 50px"
-    >
-      <div
-        id="inSide"
-        style="width: 100px; height: 100px; background: #ccc"
-      ></div>
-    </div>
-    <script type="text/javascript">
-      const inSide = document.querySelector('#inSide')
-      const outSide = document.querySelector('#outSide')
-      inSide.addEventListener('click', showMsg, false)
-      outSide.addEventListener('click', showMsg, true)
-      //阻止事件冒泡后，你点击灰色盒子，整个过程只弹一次对话框了（注意与默认情况对比）
-      function showMsg(e) {
-        console.log(e)
-        alert(e.currentTarget.id)
-        // stopBubble(e)
-      }
 
-      //阻止事件冒泡函数
-      function stopBubble(e) {
-        if (e && e.stopPropagation) e.stopPropagation()
-        else window.event.cancelBubble = true
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>event-demo</title>
+</head>
+
+<body>
+  <div id="outSide" style="width: 100px; height: 100px; background: #000; padding: 50px">
+    <div id="inSide" style="width: 100px; height: 100px; background: #ccc"></div>
+  </div>
+  <input type="text" id="my-input" />
+
+  <script type="text/javascript">
+    const inSide = document.querySelector('#inSide')
+    const outSide = document.querySelector('#outSide')
+    inSide.addEventListener('click', showMsg, false)
+    outSide.addEventListener('click', showMsg, true)
+    //阻止事件冒泡后，你点击灰色盒子，整个过程只弹一次对话框了（注意与默认情况对比）
+    function showMsg(e) {
+      console.log(e)
+      alert(e.currentTarget.id)
+      // stopBubble(e)
+    }
+
+    //阻止事件冒泡函数
+    function stopBubble(e) {
+      if (e && e.stopPropagation) e.stopPropagation()
+      else window.event.cancelBubble = true
+    }
+
+    var input = document.getElementById('my-input');
+    input.addEventListener('keypress', checkName, false);
+
+    function checkName(e) {
+      if (e.charCode < 97 || e.charCode > 122) {
+        e.preventDefault();
       }
-    </script>
-  </body>
+    }
+
+    // 自定义事件
+    var event = new CustomEvent('build', { 'detail': 'hello' });
+    function eventHandler(e) {
+      console.log(e.detail);
+    }
+
+    document.body.addEventListener('build', function (e) {
+      console.log(e.detail);
+    });
+
+    document.body.dispatchEvent(event);
+  </script>
+</body>
+
 </html>
