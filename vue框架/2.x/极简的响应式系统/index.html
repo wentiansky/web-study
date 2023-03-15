@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>极简的响应式系统</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ test }}</h1>
+  </div>
+
+  <script>
+    (function(global) {
+      class MyVue {
+        constructor(options) {
+          this.options = options
+          this.initData(options)
+          let el = this.options.id
+          this.$mount(el)
+        }
+
+        initData(options) {
+          if (!options.data) return
+          this.data = options.data
+          new Observer(options.data)
+        }
+
+        $mount(el) {
+          const updateView = _ => {
+            const reg = /{{\s(\w*)\s}}/
+            let innerHtml = document.querySelector(el).innerHTML
+            let key = innerHtml.match(reg)[1]
+            document.querySelector(el).innerHTML = innerHtml.replace(reg, this.options.data[key])
+          }
+          new Watcher(updateView, true)
+        }
+      }
+
+      class Observer {
+        constructor(data) {
+          this.walk(data)
+        }
+
+        walk(obj) {
+          let keys = Object.keys(obj)
+          for (let i = 0; i < keys.length; i++) {
+            this.defineReactive(obj, keys[i])
+          }
+        }
+
+        defineReactive(obj, key) {
+          const dep = new Dep()
+          const property = Object.getOwnPropertyDescriptor(obj)
+          let val = obj[key]
+          if (property && property.configurable === false) return
+          Object.defineProperty(obj, key, {
+            configurable: true,
+            enumerable: true,
+            get() {
+              if (Dep.target) {
+                dep.depend()
+              }
+              return val
+            },
+            set(newVal) {
+              if (newVal === val) return
+              val = newVal
+              dep.notify()
+            }
+          })
+        }
+      }
+      
+      // 依赖本身
+      class Watcher {
+        constructor(expOrfn, isRenderWatcher) {
+          this.getter = expOrfn
+          this.get()
+        }
+
+        get() {
+          Dep.target = this
+          this.getter()
+          Dep.target = null
+        }
+
+        update() {
+          this.get()
+        }
+      }
+      
+      let uid = 0
+      // 依赖管理
+      class Dep {
+        constructor() {
+          this.id = uid++
+          this.subs = []
+        }
+
+        // 依赖收集
+        depend() {
+          if (Dep.target) {
+            // Dep.target代表当前的watcher
+            this.subs.push(Dep.target)
+          }
+        }
+
+        // 派发更新
+        notify() {
+          const subs = this.subs.slice()
+          let keys = Object.keys(subs)
+          for (let i = 0; i < subs.length; i++) {
+            subs[i].update()
+          }
+        }
+      }
+      Dep.target = null
+
+      global.MyVue = MyVue
+    }(window))
+
+    var vm = new MyVue({
+      id: '#app',
+      data: {
+        test: 12
+      }
+    })
+  </script>
+</body>
+</html>
