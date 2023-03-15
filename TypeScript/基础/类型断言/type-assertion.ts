@@ -103,10 +103,9 @@ const apiErr: ApiError1 = {
 }
 
 // 将任何一个类型断言为any
-window.foo = 1(
-  // 报错
-  window as any
-).foo = 2
+window.foo = 1 // 报错
+
+(window as any).foo = 2
 
 // 将any断言为一个具体的类型
 function getCacheData(key: string): any {

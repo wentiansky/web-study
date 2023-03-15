@@ -4,7 +4,13 @@
 //   2-2. <类型> 值;
 // 3. 用途；
 //   3-1. 将联合类型断言为其中一个类型;
-//   3-2. 将一个父类断言为一个具体的子类；
+//   3-2. 将一个父类断言为一个具体的子类;
+//   3-3. 将any断言为一个具体的类型;
+// 4. 类型断言的限制;
+// 5. 双重断言(一般不使用);
+// 6. 类型断言 VS 类型转换
+// 7. 类型断言 VS 类型声明；
+// 8. 类型断言 VS 泛型；
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -88,7 +94,21 @@ function isApiError1(error) {
 }
 var apiErr = {
     code: 400,
-    name: "",
-    message: ""
+    name: '',
+    message: ''
 };
+// 将任何一个类型断言为any
+window.foo = 1 // 报错
+(window).foo = 2;
+// 将any断言为一个具体的类型
+function getCacheData(key) {
+    return window.cache[key];
+}
+var dog = getCacheData('wangchai');
+console.log(dog.name);
+// Animal1兼容Cat1，可以互相类型断言
+// 双重断言
+function testCat1(cat) {
+    return cat;
+}
 // ***************************例子***************************
