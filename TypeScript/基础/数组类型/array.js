@@ -5,8 +5,8 @@
 // 5. 类数组(Array-like Object)；
 // 6. any在数组中的运用；
 var arr1 = [1, 2, 3];
-var arr2 = [1, 2, '3']; // 报错
-arr1.push('3'); // 报错
+// const arr2: number [] = [1, 2, '3'] // 报错
+// arr1.push('3') // 报错
 var arr3 = [4, 5, 6];
 var arr4 = [7, 8, 9];
 // 定义类数组接口

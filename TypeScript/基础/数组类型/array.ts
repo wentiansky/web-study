@@ -5,8 +5,8 @@
 // 5. 类数组(Array-like Object)；
 // 6. any在数组中的运用；
 const arr1: number [] = [1, 2, 3]
-const arr2: number [] = [1, 2, '3'] // 报错
-arr1.push('3') // 报错
+// const arr2: number [] = [1, 2, '3'] // 报错
+// arr1.push('3') // 报错
 
 const arr3: Array<number> = [4, 5, 6]
 
@@ -15,13 +15,15 @@ interface NumberArray {
 }
 const arr4: NumberArray = [7, 8, 9]
 
+interface IArgs {
+  [index: number]: number
+  length: number
+  callee: Function
+}
+
 // 定义类数组接口
 function sum(a: number, b: number): number {
-  let args: {
-    [index: number]: number
-    length: number
-    callee: Function
-  } = arguments
+  let args: IArgs = arguments
   return args[0] + args[1]
 }
 sum(1, 2)
