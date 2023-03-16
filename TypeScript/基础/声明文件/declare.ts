@@ -10,17 +10,25 @@
 //   2-2. 安装@types npm包查看;
 //   2-3. 创建一个 node_modules/@types/foo/index.d.ts 文件(临时测试);
 //   2-4. 创建一个 types目录, 如types/foo/index.d.ts, 需配置tsconfig.json中的path和baseUrl字段;
+import { jQueryVar, jQueryLet, jQueryConst } from './declare-var-let-const'
+import { jQueryFn } from './declare-function'
 
-// declare var
-declare var jQuery: (selector: string) => any
-jQuery('#foo')
+// 1-1. declare var
+jQueryVar('#foo')
 
-// declare function
-declare function Zepto(selector: string): any
-// 支持函数重载
-declare function Zepto(domReadyCallback: () => any): any
-Zepto('#foo')
-Zepto(function () {
+// 1-1. declare let
+jQueryLet = function(selector) {
+  return document.querySelector(selector)
+}
+
+// 1-1. declare const
+jQueryConst = function(selector) {
+  return document.querySelector(selector)
+}
+
+// 1-2. declare function
+jQueryFn('#foo')
+jQueryFn(function () {
   alert('Dom Ready!')
 })
 
@@ -49,13 +57,13 @@ const directions = [
 ]
 
 // declare namespace
-declare namespace jQuery1 {
-  const verson: number
-  function ajax(url: string, options?: any): void
-  class Event {
-    blur(eventType: EventType): void
-  }
-}
+// declare namespace jQuery1 {
+//   const verson: number
+//   function ajax(url: string, options?: any): void
+//   class Event {
+//     blur(eventType: EventType): void
+//   }
+// }
 
 // interface
 interface AjaxSettings {
