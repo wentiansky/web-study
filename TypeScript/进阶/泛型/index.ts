@@ -73,7 +73,7 @@ console.log(createArray2(3, 'y'))
 /* 5. 泛型类 */
 class GenericNumber<T> {
   zeroValue: T
-  add(x: T, y: T): T
+  add: (x: T, y: T) => T
 }
 
 let myGenericNumber = new GenericNumber<number>()
