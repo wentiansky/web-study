@@ -13,6 +13,9 @@ console.log(pinyin('重庆', {
   // heteronym: true,
   // group: true
 }))
+function testLineHistory() {
+  console.log('test line history')
+}
 </script>
 
 <template>
