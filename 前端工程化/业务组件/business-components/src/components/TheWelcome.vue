@@ -14,7 +14,8 @@ console.log(pinyin('重庆', {
   // group: true
 }))
 function testLineHistory() {
-  console.log('test line history')
+  console.log('test line history1')
+  console.log('test line history2')
 }
 </script>
 
