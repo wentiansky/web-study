@@ -1,5 +1,15 @@
 document.write('hello world')
 
+import pinyin from 'pinyin'
+
+console.log(
+  pinyin('重庆', {
+    segment: true,
+    // heteronym: true,
+    // group: true
+  })
+)
+
 import Mock from 'better-mock'
 
 /* Mock.mock('/api/data', {
@@ -15,5 +25,4 @@ fetch('/api/data', {
 })
   .then((res) => res.json())
   .then((json) => console.log(json))
-
-
+  .catch((err) => console.error(err))
